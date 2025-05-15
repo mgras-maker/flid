@@ -74,11 +74,10 @@ export const preloadFonts = async (): Promise<void> => {
     link.type = 'font/ttf';
     link.crossOrigin = 'anonymous';
     document.head.appendChild(link);
-  });
-  // Create a stylesheet link to ensure fonts are loaded
+  });  // Create a stylesheet link to ensure fonts are loaded
   const cssLink = document.createElement('link');
   cssLink.rel = 'stylesheet';
-  cssLink.href = './public/fonts/fonts.css';
+  cssLink.href = './public/fonts.css';
   document.head.appendChild(cssLink);
   
   // Wait for availability check

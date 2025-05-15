@@ -19,10 +19,10 @@ export const preloadFonts = (): void => {
     { rel: 'preload', href: 'https://fonts.gstatic.com/s/inter/v12/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuLyfAZ9hjp-Ek-_EeA.woff', as: 'font', type: 'font/woff', crossOrigin: 'anonymous', importance: 'high' },
     { rel: 'preload', href: 'https://fonts.gstatic.com/s/inter/v12/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuI6fAZ9hjp-Ek-_EeA.woff', as: 'font', type: 'font/woff', crossOrigin: 'anonymous', importance: 'high' }
   ];
-    // Critical CSS - improves FCP
+  // Critical CSS - improves FCP
   const criticalCSS = document.createElement('link');
   criticalCSS.rel = 'stylesheet';
-  criticalCSS.href = '/flid/fonts/fonts.css';
+  criticalCSS.href = '/flid/fonts.css';
   criticalCSS.setAttribute('fetchpriority', 'high');
   document.head.appendChild(criticalCSS);
   

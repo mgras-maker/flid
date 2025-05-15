@@ -9,7 +9,7 @@
 /* Font display settings for better CLS optimization - using Google Fonts */
 @layer base {
   /* Using Google Fonts instead of local fonts to avoid loading errors */
-  /* Font loading is handled by public/fonts/fonts.css */
+  /* Font loading is handled by public/fonts.css */
 }
 
 /* Fonts loaded dynamically in main.tsx through fonts.ts */
