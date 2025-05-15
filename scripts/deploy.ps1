@@ -49,8 +49,20 @@ New-Item -Path (Join-Path $tempDir ".nojekyll") -ItemType File -Force | Out-Null
 # Fix the index.html file to use the correct paths
 Write-Host "Fixing paths in index.html..." -ForegroundColor Cyan
 $indexPath = Join-Path $tempDir "index.html"
+
+# Find the main JS file
+$jsFile = Get-ChildItem -Path (Join-Path $tempDir "assets") -Filter "index-*.js" | Select-Object -First 1
+
+# Create a new index.html from template
+$templatePath = Join-Path (Split-Path -Parent (Split-Path -Parent $MyInvocation.MyCommand.Path)) "public\index.html.template"
+$templateContent = Get-Content $templatePath -Raw
+$newIndexContent = $templateContent -replace '</body>', "<script type=`"module`" src=`"./assets/$($jsFile.Name)`"></script>`n  </body>"
+
+# Replace the old index.html
+Set-Content -Path $indexPath -Value $newIndexContent
+
+# Fix any remaining absolute paths
 $indexContent = Get-Content $indexPath -Raw
-$indexContent = $indexContent -replace '<script type="module" src="/src/main.tsx"></script>', '<script type="module" src="./assets/index-257c791f.js"></script>'
 $indexContent = $indexContent -replace '(src|href)="/', '$1="./'
 Set-Content -Path $indexPath -Value $indexContent
 
