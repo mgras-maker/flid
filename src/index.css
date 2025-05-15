@@ -1,0 +1,332 @@
+﻿/*
+! tailwindcss v3.x.x | MIT License | https://tailwindcss.com
+*/
+/* Base styles with priority for critical rendering path */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Font display settings for better CLS optimization - using Google Fonts */
+@layer base {
+  /* Using Google Fonts instead of local fonts to avoid loading errors */
+  /* Font loading is handled by public/fonts/fonts.css */
+}
+
+/* Fonts loaded dynamically in main.tsx through fonts.ts */
+
+/* 3D Transform Styles for Design Process Section */
+.perspective-800 {
+  perspective: 800px;
+}
+
+.transform-style-3d {
+  transform-style: preserve-3d;
+}
+
+/* Instant page render styles - no flickering */
+.instant-render {
+  opacity: 1 !important;
+  transform: none !important;
+  transition: none !important;
+  animation: none !important;
+}
+
+/* Special class added to body during initial rendering */
+body.initial-render * {
+  transition-duration: 0ms !important;
+  animation-duration: 0ms !important;
+}
+
+/* Smooth page transitions - no flickering */
+.page-transition-enter {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.page-transition-exit {
+  opacity: 0;
+  transition: opacity 0ms ease-in;
+  position: absolute;
+  width: 100%;
+}
+
+:root {
+  --flid-primary: #D2CDE8;
+  --flid-dark: #2A2A42;
+  --flid-light: #F5F5FA;
+  --flid-accent: #8B7DD1;
+  --flid-accent-dark: #9A8CE0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  width: 100%;
+  font-family: 'Inter', sans-serif;
+  @apply bg-flid-light text-flid-dark transition-colors duration-300;
+}
+
+body {
+  overflow-x: hidden; /* Prevent horizontal scrolling during page transitions */
+}
+
+.dark body {
+  @apply bg-flid-dark text-white;
+}
+
+@layer components {
+  .btn {
+    @apply px-6 py-3 font-medium rounded-lg transition-all duration-300;
+  }
+
+  .btn-primary {
+    @apply bg-flid-accent text-white hover:bg-opacity-80 dark:bg-flid-accent-dark;
+  }
+
+  .btn-outline {
+    @apply border-2 border-flid-accent text-flid-accent hover:bg-flid-accent hover:text-white 
+    dark:border-flid-accent-dark dark:text-flid-accent-dark dark:hover:bg-flid-accent-dark dark:hover:text-white;
+  }
+
+  .section {
+    @apply py-16 md:py-24;
+  }
+  
+  .section-dark {
+    @apply bg-flid-dark text-white dark:bg-gray-900;
+  }
+  
+  .section-light {
+    @apply bg-flid-light text-flid-dark dark:bg-gray-800 dark:text-white;
+  }
+
+  .full-width-section {
+    @apply mx-0 px-0 overflow-x-hidden;
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+    background-color: var(--flid-light);
+  }
+
+  .container-wide {
+    @apply w-full max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8;
+  }
+  
+  .container-extra-wide {
+    @apply w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-12 xl:px-16;
+  }
+  
+  .aspect-ratio-container {
+    position: relative;
+    width: 100%;
+    padding-top: 75%; /* 4:3 aspect ratio by default */
+    overflow: hidden;
+    height: 0; /* Height 0 is needed for aspect ratio to work correctly */
+  }
+  
+  .aspect-ratio-img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    background-size: cover;
+    background-position: center;
+  }
+
+/* Design-focused project grid styles */
+  #projects-section {
+    @apply py-24 md:py-36;
+    box-shadow: 0 0 40px rgba(0,0,0,0.05);
+  }
+
+/* No additional grid gap styling to ensure cards are flush */
+  
+  /* Grid layout with variable heights based on aspect ratio */
+  @media (min-width: 768px) {
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.25rem; /* Slightly increased gap for better visual separation */
+      margin: 0 auto;
+    }
+
+/* Let cards take natural height based on content */
+    .projects-grid > div {
+      height: fit-content;
+      transform: translateZ(0); /* Force GPU acceleration for smoother animations */
+    }
+  }
+
+/* Project card enhanced styling */
+  .project-card {
+    transform-origin: center bottom;
+    display: flex;
+    flex-direction: column;
+    height: auto; /* Let card height be determined by content */
+    will-change: transform, box-shadow, opacity; /* Optimize animations */
+    transform: translateZ(0); /* Force GPU acceleration */
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06);
+    transition: box-shadow 0.4s cubic-bezier(0.19, 1.0, 0.22, 1.0); /* Smooth transition for shadow */
+  }
+  
+  .project-card:hover {
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+  }
+  
+  .project-card:hover {
+    z-index: 10; /* Ensure it appears above other cards when hovered */
+  }
+
+/* Each project card adjusts to its own content */
+  .projects-grid > div {
+    display: block; /* Back to block display to respect natural height */
+    break-inside: avoid; /* Prevent cards from breaking across columns */
+  }
+
+/* Fix text visibility issues */
+  .project-card p {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+  }
+  
+  .project-card h3 {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+/* Professional animation styles */
+  .card-content {
+    transform-origin: top center;
+    border-bottom-left-radius: 0.75rem;
+    border-bottom-right-radius: 0.75rem;
+    overflow: hidden;
+    will-change: transform, height;
+  }
+
+/* Refined project image styling with sophisticated gradient */
+  .aspect-ratio-container::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(to bottom, 
+      rgba(0,0,0,0) 50%, 
+      rgba(0,0,0,0.2) 70%,
+      rgba(0,0,0,0.4) 100%);
+    pointer-events: none;
+    opacity: 0.6;
+    transition: all 0.4s cubic-bezier(0.19, 1.0, 0.22, 1.0); /* Premium easing curve */
+    z-index: 1; /* Ensure gradient is above the image */
+  }
+  
+  .project-card:hover .aspect-ratio-container::after {
+    opacity: 0.3;
+    background: linear-gradient(to bottom, 
+      rgba(0,0,0,0) 60%, 
+      rgba(0,0,0,0.2) 80%,
+      rgba(0,0,0,0.4) 100%);
+  }
+  
+  .card {
+    @apply bg-white rounded-xl shadow-lg overflow-hidden dark:bg-gray-800 transition-colors duration-300;
+  }
+}
+
+/* Enhanced dark mode styling */
+.text-shadow-lg {
+  text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.dark .text-glow {
+  text-shadow: 0 0 10px rgba(154, 140, 224, 0.5), 0 0 20px rgba(154, 140, 224, 0.3), 0 0 30px rgba(154, 140, 224, 0.1);
+}
+
+.dark .hover-glow:hover {
+  text-shadow: 0 0 8px rgba(154, 140, 224, 0.6), 0 0 12px rgba(154, 140, 224, 0.4);
+}
+
+/* Project page specific dark mode styles */
+.dark .project-phase-card {
+  background: linear-gradient(to bottom right, rgba(42, 42, 66, 0.8), rgba(30, 30, 50, 0.9));
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+}
+
+button:focus,
+button:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+}
+
+/* Custom styling for Leaflet maps in dark mode */
+.dark-map {
+  filter: brightness(0.8) invert(1) contrast(1.2) hue-rotate(200deg) saturate(0.3) brightness(0.7) !important;
+}
+
+.dark .leaflet-control, 
+.dark .leaflet-control-attribution {
+  filter: invert(1) hue-rotate(180deg);
+}
+
+/* Enhanced form input focus effects */
+.dark input:focus, .dark textarea:focus, .dark select:focus {
+  box-shadow: 0 0 0 3px rgba(154, 140, 224, 0.3);
+}
+
+input:focus, textarea:focus, select:focus {
+  box-shadow: 0 0 0 3px rgba(139, 125, 209, 0.2);
+}
+
+/* Contact page specific animations */
+@keyframes float-slow {
+  0%, 100% { transform: translateY(0) rotate(0); }
+  50% { transform: translateY(-20px) rotate(3deg); }
+}
+
+.animate-float-slow {
+  animation: float-slow 10s ease-in-out infinite;
+}
+
+/* Glass card effects */
+.glass-card {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.2);
+}
+
+.dark .glass-card {
+  background: rgba(30, 30, 46, 0.8);
+  border: 1px solid rgba(79, 79, 115, 0.3);
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    color: #213547;
+    background-color: #ffffff;
+  }
+  a:hover {
+    color: #747bff;
+  }
+  button {
+    background-color: #f9f9f9;
+  }
+}
+
+

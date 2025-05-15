@@ -1,0 +1,10 @@
+{
+  "extends": "./tsconfig.app.json",
+  "exclude": [
+    "src/components/three/GoldenRatioDesignThinking.tsx",
+    "src/components/three/nodes/EmpathyNode.tsx",
+    "src/components/three/nodes/EnergyFlow.tsx",
+    "src/components/three/nodes/ReasoningNode.fixed.tsx",
+    "src/components/three/nodes/ReasoningNode.tsx"
+  ]
+}

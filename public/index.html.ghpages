@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/flid/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="FLID Foundation - People-Innovations-Design - Balance through design - Designing positive change for sustainability" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="/flid/fonts/fonts.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;700&display=swap" rel="stylesheet">
+    
+    <!-- GitHub Pages SPA redirect script -->
+    <script type="text/javascript">
+      // Single Page Apps for GitHub Pages
+      (function(l) {
+        if (l.search[1] === '/' ) {
+          var decoded = l.search.slice(1).split('&').map(function(s) { 
+            return s.replace(/~and~/g, '&')
+          }).join('?');
+          window.history.replaceState(null, null,
+              l.pathname.slice(0, -1) + decoded + l.hash
+          );
+        }
+      }(window.location))
+    </script>
+    
+    <!-- Preload key resources -->
+    <link rel="preload" as="image" href="/flid/projects/energia-jutra.jpg">
+    <link rel="preload" as="image" href="/flid/projects/lotnisko-wiec.jpg">
+    <link rel="preload" as="image" href="/flid/projects/eco-packaging.jpg">
+    <link rel="preload" as="style" href="/flid/fonts/fonts.css">
+    <link rel="preload" as="font" href="/flid/fonts/Roboto-Bold.ttf" type="font/ttf" crossorigin>
+    <link rel="preload" as="font" href="/flid/fonts/Roboto-Light.ttf" type="font/ttf" crossorigin>
+    
+    <title>FLID Foundation | Balance through design</title>
+    <script type="module" crossorigin src="/flid/assets/index.js"></script>
+    <link rel="stylesheet" crossorigin href="/flid/assets/index.css">
+</head>
+<body>
+    <div id="root"></div>
+</body>
+</html>
