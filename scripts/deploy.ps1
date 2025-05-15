@@ -46,6 +46,14 @@ Copy-Item -Path "dist\*" -Destination $tempDir -Recurse -Force
 # Create a .nojekyll file to bypass Jekyll processing on GitHub Pages
 New-Item -Path (Join-Path $tempDir ".nojekyll") -ItemType File -Force | Out-Null
 
+# Fix the index.html file to use the correct paths
+Write-Host "Fixing paths in index.html..." -ForegroundColor Cyan
+$indexPath = Join-Path $tempDir "index.html"
+$indexContent = Get-Content $indexPath -Raw
+$indexContent = $indexContent -replace '<script type="module" src="/src/main.tsx"></script>', '<script type="module" src="./assets/index-257c791f.js"></script>'
+$indexContent = $indexContent -replace '(src|href)="/', '$1="./'
+Set-Content -Path $indexPath -Value $indexContent
+
 # Navigate to the temporary directory
 Set-Location $tempDir
 

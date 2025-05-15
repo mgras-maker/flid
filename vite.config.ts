@@ -11,4 +11,14 @@ export default defineConfig({
     },
   },
   base: process.env.NODE_ENV === 'production' ? '/flid/' : '/',
+  build: {
+    outDir: 'dist',
+    assetsDir: 'assets',
+    emptyOutDir: true,
+    rollupOptions: {
+      output: {
+        manualChunks: undefined,
+      },
+    },
+  },
 })
