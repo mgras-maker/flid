@@ -56,7 +56,7 @@ $jsFile = Get-ChildItem -Path (Join-Path $tempDir "assets") -Filter "index-*.js"
 # Create a new index.html from template
 $templatePath = Join-Path (Split-Path -Parent (Split-Path -Parent $MyInvocation.MyCommand.Path)) "public\index.html.template"
 $templateContent = Get-Content $templatePath -Raw
-$newIndexContent = $templateContent -replace '</body>', "<script type=`"module`" src=`"./assets/$($jsFile.Name)`"></script>`n  </body>"
+$newIndexContent = $templateContent -replace '<!-- The script tag will be inserted here during the build process -->', "<script type=`"module`" src=`"./assets/$($jsFile.Name)`"></script>"
 
 # Replace the old index.html
 Set-Content -Path $indexPath -Value $newIndexContent
