@@ -58,7 +58,7 @@ const DesignProcessSection = () => {
       color: '#F59E0B',
       lightColor: '#FDE68A'
     }
-  ];  return (    <section className={`pt-8 pb-24 px-6 ${isDarkMode ? 'bg-gray-950' : 'bg-gray-50'} overflow-hidden transition-colors duration-300`}>
+  ];  return (    <section className={`pt-8 pb-24 px-6 ${isDarkMode ? 'bg-gray-950' : 'bg-gray-50'} overflow-hidden transition-colors duration-300 relative`}>
       <div className="max-w-[1920px] w-full mx-auto">
         <motion.div 
           initial={{ opacity: 0, y: 20 }}

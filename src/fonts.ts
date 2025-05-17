@@ -22,7 +22,8 @@ export const preloadFonts = (): void => {
   // Critical CSS - improves FCP
   const criticalCSS = document.createElement('link');
   criticalCSS.rel = 'stylesheet';
-  criticalCSS.href = '/flid/fonts.css';
+  // Use import.meta.env.BASE_URL to correctly resolve path in dev and prod
+  criticalCSS.href = `${import.meta.env.BASE_URL}fonts.css`.replace('//', '/'); // Ensure no double slashes
   criticalCSS.setAttribute('fetchpriority', 'high');
   document.head.appendChild(criticalCSS);
   

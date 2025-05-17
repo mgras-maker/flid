@@ -20,7 +20,7 @@ const Layout = memo(({ children }: LayoutProps) => {
   
   return (    <div className="flex flex-col min-h-screen bg-flid-light dark:bg-flid-dark transition-colors duration-300">
       <Navbar />
-      <main className="flex-grow mt-16">
+      <main className="flex-grow mt-16 relative"> {/* Added relative positioning */}
         {children}
       </main>
       <Footer />

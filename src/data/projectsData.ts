@@ -49,23 +49,15 @@ const projectsData: ProjectsData = {
     year: '2025',
     location: 'Poland',
     categories: ['Music', 'Jazz', 'Culture'],
-    coverImage: './projects/beata-przybytek/beata-przybytek.jpg',    gallery: [
-      './projects/beata-przybytek/gallery-1.jpg',
-      './projects/beata-przybytek/gallery-2.jpg',
-      './projects/beata-przybytek/gallery-3.jpg',
-      './projects/beata-przybytek/gallery-4.jpg',
-      './projects/beata-przybytek/gallery-5.jpg',
-      './projects/beata-przybytek/gallery-6.jpg',
-      './projects/beata-przybytek/gallery-7.jpg',
-    ],
-    galleryCaptions: [
-      'Beata Przybytek podczas występu na Jazz Festival 2024',
-      'Moment z sesji nagraniowej albumu "Today Girls Don\'t Cry"',
-      'Wieczór promocyjny nowego albumu',
-      'Beata przy fortepianie - sesja zdjęciowa',
-      'Fragment koncertu w Filharmonii Narodowej',
-      'Okładka albumu "Today Girls Don\'t Cry"',
-      'Beata Przybytek z zespołem podczas trasy koncertowej',
+    coverImage: '../assets/projects/beata-przybytek/beata-przybytek.jpg',
+    gallery: [
+      '../assets/projects/beata-przybytek/gallery-1.jpg',
+      '../assets/projects/beata-przybytek/gallery-2.jpg',
+      '../assets/projects/beata-przybytek/gallery-3.jpg',
+      '../assets/projects/beata-przybytek/gallery-4.jpg',
+      '../assets/projects/beata-przybytek/gallery-5.jpg',
+      '../assets/projects/beata-przybytek/gallery-6.jpg',
+      '../assets/projects/beata-przybytek/gallery-7.jpg',
     ],
     galleryCaptions: [
       'Beata Przybytek podczas występu na Jazz Festival 2024',
@@ -93,7 +85,8 @@ const projectsData: ProjectsData = {
         description: 'Opracowaliśmy strategię dystrybucji albumu, zarówno w formie cyfrowej jak i analogowej, zapewniając dostępność dla różnych grup odbiorców.',
         outcome: 'Skuteczne dotarcie do miłośników jazzu i pokrewnych gatunków muzycznych, zarówno wśród tradycyjnych słuchaczy jak i młodszych odbiorców.'
       }
-    ],    results: [
+    ],
+    results: [
       'Prezentacja pełni talentu artystki: od wirtuozerii fortepianowej po przejmujący wokal',
       'Promocja albumu "Today Girls Don\'t Cry" jako dzieła w pełni autorskiego',
       'Ukazanie różnorodności stylistycznej: od bluesa, przez jazz, soul, R\'n\'B i funky, po brzmienia latynoskie i gospel',
@@ -114,12 +107,13 @@ const projectsData: ProjectsData = {
     client: 'Community Energy Coalition',
     duration: '24 months',
     year: '2024-2025',
-    location: 'Kraków, Poland',    categories: ['Sustainability', 'Innovation', 'Social Impact'],
-    coverImage: './projects/energia-jutra.jpg',
+    location: 'Kraków, Poland',
+    categories: ['Sustainability', 'Innovation', 'Social Impact'],
+    coverImage: '../assets/projects/energia-jutra.jpg',
     gallery: [
-      './projects/energia-jutra/gallery-1.jpg',
-      './projects/energia-jutra/gallery-2.jpg',
-      './projects/energia-jutra/gallery-3.jpg',
+      '../assets/projects/energia-jutra/gallery-1.jpg',
+      '../assets/projects/energia-jutra/gallery-2.jpg',
+      '../assets/projects/energia-jutra/gallery-3.jpg',
     ],
     challenge: 'The Community Energy Coalition sought to address the growing energy crisis by making renewable energy solutions more accessible and understandable to ordinary citizens. Despite technological advances, adoption remained low due to complexity, cost perceptions, and lack of community engagement models.',
     approach: [
@@ -145,7 +139,8 @@ const projectsData: ProjectsData = {
       '35% increase in renewable energy literacy in target communities',
       'Creation of cooperative ownership model reducing costs by 40% for participants',
       'Establishment of youth renewable energy ambassador program with 50 graduates'
-    ],    testimonial: {
+    ],
+    testimonial: {
       quote: "FLID Foundation's approach to renewable energy transformed our communities' relationship with power generation. By making solar not just accessible but a source of community pride and ownership, they've created something far more sustainable than just the energy itself.",
       author: 'Anna Nowak',
       title: 'Director, Community Energy Coalition'
@@ -161,11 +156,11 @@ const projectsData: ProjectsData = {
     year: '2023-2024',
     location: 'Gdańsk, Poland',
     categories: ['Urban Design', 'Cultural Events', 'Adaptive Reuse'],
-    coverImage: './projects/lotnisko-wiec.jpg',
+    coverImage: '../assets/projects/lotnisko-wiec.jpg',
     gallery: [
-      './projects/lotnisko-wiec/gallery-1.jpg',
-      './projects/lotnisko-wiec/gallery-2.jpg',
-      './projects/lotnisko-wiec/gallery-3.jpg',
+      '../assets/projects/lotnisko-wiec/gallery-1.jpg',
+      '../assets/projects/lotnisko-wiec/gallery-2.jpg',
+      '../assets/projects/lotnisko-wiec/gallery-3.jpg',
     ],
     challenge: 'The Artistic Spaces Foundation sought to address both urban blight and lack of cultural spaces by temporarily transforming an abandoned airport into a vibrant festival space. The challenge included creating a safe, accessible cultural venue while respecting the industrial heritage and demonstrating sustainable event design principles.',
     approach: [
@@ -196,7 +191,8 @@ const projectsData: ProjectsData = {
       quote: "What FLID created wasn't just a festival but a living laboratory for how abandoned spaces can be reimagined. Their thoughtful approach to design honored the airport's history while creating something entirely new—a magical balance that our attendees felt from the moment they arrived.",
       author: 'Marek Kowalski',
       title: 'Creative Director, Artistic Spaces Foundation'
-    },    nextProjects: ['energia-jutra-en', 'community-garden']
+    },
+    nextProjects: ['energia-jutra-en', 'community-garden']
   },
   
   'eco-packaging': {
@@ -208,11 +204,11 @@ const projectsData: ProjectsData = {
     year: '2023-2024',
     location: 'Warsaw, Poland',
     categories: ['Product Design', 'Sustainability', 'Innovation'],
-    coverImage: './projects/eco-packaging.jpg',
+    coverImage: '../assets/projects/eco-packaging.jpg',
     gallery: [
-      './projects/eco-packaging/gallery-1.jpg',
-      './projects/eco-packaging/gallery-2.jpg',
-      './projects/eco-packaging/gallery-3.jpg',
+      '../assets/projects/eco-packaging/gallery-1.jpg',
+      '../assets/projects/eco-packaging/gallery-2.jpg',
+      '../assets/projects/eco-packaging/gallery-3.jpg',
     ],
     challenge: 'The EcoRetail Consortium needed to address growing consumer and regulatory demand for sustainable packaging solutions that didn\'t compromise on product protection, shelf appeal, or user experience. Traditional plastic packaging was creating significant environmental issues, while existing eco-alternatives often failed on performance or aesthetics.',
     approach: [

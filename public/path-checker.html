@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asset Path Checker</title>
+</head>
+<body>
+    <h1>FLID Foundation Asset Path Checker</h1>
+
+    <div id="results">
+        <p>Checking paths...</p>
+    </div>
+
+    <script>
+        const checkPage = async () => {
+            const results = document.getElementById('results');
+            results.innerHTML = '<h2>Page Analysis</h2>';
+
+            try {
+                const response = await fetch('/flid/');
+                const html = await response.text();
+                
+                // Check favicon path
+                const faviconMatch = html.match(/<link rel="icon" type="image\/svg\+xml" href="([^"]+)"/);
+                if (faviconMatch) {
+                    const faviconPath = faviconMatch[1];
+                    results.innerHTML += `<p><strong>Favicon path:</strong> ${faviconPath}</p>`;
+                    
+                    // Try to load the favicon
+                    const img = new Image();
+                    img.onload = () => {
+                        results.innerHTML += `<p style="color: green">✓ Favicon loaded correctly!</p>`;
+                        results.innerHTML += `<img src="${faviconPath}" alt="Favicon" style="width: 32px; height: 32px;">`;
+                    };
+                    img.onerror = () => {
+                        results.innerHTML += `<p style="color: red">✗ Favicon failed to load from path: ${faviconPath}</p>`;
+                    };
+                    img.src = faviconPath;
+                } else {
+                    results.innerHTML += `<p style="color: red">✗ Favicon path not found in HTML</p>`;
+                }
+                
+                // Check CSS paths
+                const cssMatches = html.match(/<link[^>]*rel="stylesheet"[^>]*href="([^"]+)"/g);
+                if (cssMatches) {
+                    results.innerHTML += `<h3>CSS Files</h3>`;
+                    cssMatches.forEach(match => {
+                        const cssPath = match.match(/href="([^"]+)"/)[1];
+                        results.innerHTML += `<p><strong>CSS path:</strong> ${cssPath}</p>`;
+                    });
+                }
+                
+                // Check JS paths
+                const jsMatches = html.match(/<script[^>]*src="([^"]+)"/g);
+                if (jsMatches) {
+                    results.innerHTML += `<h3>JavaScript Files</h3>`;
+                    jsMatches.forEach(match => {
+                        const jsPath = match.match(/src="([^"]+)"/)[1];
+                        results.innerHTML += `<p><strong>JS path:</strong> ${jsPath}</p>`;
+                    });
+                }
+                
+                // Check base URL
+                const baseMatch = html.match(/<base href="([^"]+)"/);
+                if (baseMatch) {
+                    results.innerHTML += `<p><strong>Base URL:</strong> ${baseMatch[1]}</p>`;
+                }
+                
+                // Show current location
+                results.innerHTML += `<h3>Current Location</h3>`;
+                results.innerHTML += `<p><strong>URL:</strong> ${window.location.href}</p>`;
+                results.innerHTML += `<p><strong>Pathname:</strong> ${window.location.pathname}</p>`;
+                results.innerHTML += `<p><strong>Origin:</strong> ${window.location.origin}</p>`;
+                
+            } catch (err) {
+                results.innerHTML += `<p style="color: red">Error: ${err.message}</p>`;
+            }
+        };
+        
+        // Run the check
+        checkPage();
+    </script>
+</body>
+</html>
