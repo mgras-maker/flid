@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Asset Checker for FLID Foundation</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; }
+        h1 { color: #333; }
+        .asset { margin-bottom: 20px; border: 1px solid #ddd; padding: 10px; border-radius: 5px; }
+        .asset.success { background-color: #e6ffe6; }
+        .asset.failure { background-color: #ffe6e6; }
+        img { max-width: 100px; max-height: 100px; display: block; }
+    </style>
+</head>
+<body>
+    <h1>FLID Foundation Asset Checker</h1>
+    <p>This page checks if various assets are loading correctly on GitHub Pages.</p>
+    
+    <div id="results"></div>
+
+    <script>
+        // List of assets to check
+        const assets = [
+            { type: 'favicon', url: '/flid/favicon.svg', name: 'Favicon' },
+            { type: 'css', url: '/flid/assets/index-01d50395.css', name: 'Main CSS' },
+            { type: 'js', url: '/flid/assets/index-257c791f.js', name: 'Main JS' },
+            { type: 'image', url: '/flid/assets/logo-0183bc2a.gif', name: 'Logo' }
+        ];
+
+        const resultsDiv = document.getElementById('results');
+
+        // Check each asset
+        assets.forEach(asset => {
+            const assetDiv = document.createElement('div');
+            assetDiv.className = 'asset';
+            
+            // Add asset details
+            assetDiv.innerHTML = `<h3>${asset.name}</h3><p>URL: ${asset.url}</p>`;
+            
+            // Check if asset loads
+            if (asset.type === 'image' || asset.type === 'favicon') {
+                const img = new Image();
+                img.onload = () => {
+                    assetDiv.classList.add('success');
+                    assetDiv.innerHTML += '<p>✅ Successfully loaded!</p>';
+                    if (asset.type === 'image') {
+                        assetDiv.appendChild(img);
+                    }
+                };
+                img.onerror = () => {
+                    assetDiv.classList.add('failure');
+                    assetDiv.innerHTML += '<p>❌ Failed to load!</p>';
+                };
+                img.src = asset.url;
+            } else if (asset.type === 'css') {
+                const link = document.createElement('link');
+                link.rel = 'stylesheet';
+                link.href = asset.url;
+                link.onload = () => {
+                    assetDiv.classList.add('success');
+                    assetDiv.innerHTML += '<p>✅ CSS loaded successfully!</p>';
+                };
+                link.onerror = () => {
+                    assetDiv.classList.add('failure');
+                    assetDiv.innerHTML += '<p>❌ CSS failed to load!</p>';
+                };
+                document.head.appendChild(link);
+            } else if (asset.type === 'js') {
+                const script = document.createElement('script');
+                script.src = asset.url;
+                script.async = true;
+                script.onload = () => {
+                    assetDiv.classList.add('success');
+                    assetDiv.innerHTML += '<p>✅ JS loaded successfully!</p>';
+                };
+                script.onerror = () => {
+                    assetDiv.classList.add('failure');
+                    assetDiv.innerHTML += '<p>❌ JS failed to load!</p>';
+                };
+                document.head.appendChild(script);
+            }
+            
+            resultsDiv.appendChild(assetDiv);
+        });
+    </script>
+</body>
+</html>

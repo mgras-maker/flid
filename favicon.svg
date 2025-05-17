@@ -1,0 +1,14 @@
+<svg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="100" height="100" rx="20" fill="#F5F5FA" />
+  
+  <!-- Stylized F shape in gradient -->
+  <path d="M30 25H70V35H40V45H65V55H40V75H30V25Z" fill="#D2CDE8" />
+  
+  <!-- Accent elements -->
+  <circle cx="75" cy="25" r="8" fill="#8B7DD1" />
+  <rect x="65" y="70" width="15" height="5" rx="2.5" fill="#8B7DD1" />
+  
+  <!-- Dot to represent the .pl -->
+  <circle cx="80" cy="65" r="3" fill="#2A2A42" />
+</svg>
