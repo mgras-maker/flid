@@ -1,0 +1,40 @@
+/* Debug styles for page transitions */
+.debug-transition-info {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 10px;
+  border-radius: 4px;
+  font-family: monospace;
+  font-size: 12px;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0.7;
+}
+
+.debug-transition-info.hidden {
+  display: none;
+}
+
+/* Visual indicator for pages during transition */
+.page-transition-container::before {
+  content: attr(data-page);
+  position: fixed;
+  bottom: 10px;
+  left: 10px;
+  background: rgba(255, 0, 0, 0.8);
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-family: monospace;
+  font-size: 10px;
+  z-index: 9999;
+  pointer-events: none;
+}
+
+.page-transition-container[data-exiting="true"]::before {
+  background: rgba(255, 165, 0, 0.8);
+  content: "EXIT: " attr(data-page);
+}

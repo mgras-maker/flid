@@ -1,0 +1,67 @@
+/**
+ * ProjectPage Emergency Fix
+ * 
+ * Ten plik zawiera nadpisania CSS potrzebne do prawidłowego wyświetlania
+ * strony projektów, kart projektów i stopki.
+ */
+
+/* Emergency fix dla z-index */
+.projects-page-container {
+  z-index: 10 !important;
+}
+
+.projects-gallery {
+  z-index: 50 !important;
+  position: relative !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  display: grid !important;
+}
+
+.project-card {
+  z-index: 60 !important;
+  position: relative !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+/* Footer fix */
+footer {
+  position: relative !important;
+  z-index: 100 !important;
+  width: 100% !important;
+  margin-top: auto !important;
+}
+
+/* Background fix */
+.background-gradient {
+  z-index: -1 !important;
+  position: absolute !important;
+  top: 0 !important;
+}
+
+/* Upewnienie się, że główny kontener ma flexbox */
+#root {
+  display: flex !important;
+  flex-direction: column !important;
+  min-height: 100vh !important;
+}
+
+.page-transition-container {
+  display: flex !important;
+  flex-direction: column !important;
+  flex: 1 !important;
+}
+
+/* Kategorie i wyszukiwarka */
+.projects-controls-container,
+.category-nav,
+.search-container,
+.results-count {
+  z-index: 70 !important;
+  position: relative !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}

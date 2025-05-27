@@ -1,0 +1,177 @@
+/* Theme Toggle Specific Styles */
+html.dark button[aria-label*="light mode"] {
+  background-color: var(--background-alt);
+  border-color: var(--lavender-600);
+  color: var(--neutral-200);
+}
+
+html.dark .toggle-icon svg {
+  filter: drop-shadow(0 0 3px rgba(255, 255, 255, 0.15));
+}
+
+/* Sun icon styles and glow effect */
+.sun-icon {
+  filter: drop-shadow(0 0 5px rgba(255, 215, 0, 0.5));
+}
+
+/* Add subtle animation for sun center */
+.sun-icon circle:first-child {
+  animation: sunPulse 3s infinite alternate ease-in-out;
+}
+
+/* Add subtle animation for sun rays */
+.sun-icon path:nth-of-type(1) {
+  animation: sunRaysPulse 4s infinite alternate ease-in-out;
+}
+
+/* Add subtle animation for decorative rays */
+.sun-icon path:nth-of-type(2) {
+  animation: sunRaysTwinkle 3s infinite alternate-reverse ease-in-out;
+}
+
+/* Moon icon styles */
+.moon-icon {
+  filter: drop-shadow(0 0 3px rgba(255, 255, 255, 0.2));
+}
+
+/* Moon subtle glow effect */
+.moon-icon path:first-child {
+  animation: moonGlow 4s infinite alternate ease-in-out;
+}
+
+@keyframes sunPulse {
+  0% { 
+    opacity: 0.95;
+    r: 4.8; 
+  }
+  100% { 
+    opacity: 1;
+    r: 5.2; 
+  }
+}
+
+@keyframes sunRaysPulse {
+  0% { 
+    opacity: 0.9;
+    stroke-width: 2.3;
+  }
+  100% { 
+    opacity: 1;
+    stroke-width: 2.8; 
+  }
+}
+
+@keyframes sunRaysTwinkle {
+  0% { 
+    opacity: 0.8;
+    stroke-width: 1.1;
+  }
+  100% { 
+    opacity: 1;
+    stroke-width: 1.4; 
+  }
+}
+
+@keyframes moonGlow {
+  0% {
+    filter: brightness(0.97);
+  }
+  100% {
+    filter: brightness(1.03);
+  }
+}
+
+/* Hover effect for sun icon */
+button:hover .sun-icon {
+  filter: drop-shadow(0 0 8px rgba(255, 215, 0, 0.7));
+}
+
+/* Hover effect for moon icon */
+button:hover .moon-icon {
+  filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.3));
+}
+
+/* Special effect when dark mode is active */
+html.dark button[aria-label*="light mode"]:hover {
+  box-shadow: 0 0 15px var(--lavender-600);
+  background-color: var(--lavender-700);
+}
+
+/* Special hover effect in light mode */
+html:not(.dark) button[aria-label*="dark mode"]:hover {
+  background: rgba(255, 248, 225, 0.3);
+  box-shadow: 0 0 15px rgba(255, 215, 0, 0.3);
+  border-color: rgba(255, 215, 0, 0.5);
+  transition: all 0.8s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+/* Special hover effect in dark mode for moon */
+html.dark button[aria-label*="light mode"]:hover {
+  background: rgba(60, 63, 84, 0.7);
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.15);
+  transition: all 0.8s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+/* Active state for theme toggle button */
+button[aria-label*="mode"]:active {
+  transform: scale(0.95);
+}
+
+/* Add a subtle ray effect on hover for sun button */
+button[aria-label*="dark mode"]:hover::before {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: radial-gradient(circle at center, transparent 60%, rgba(255, 215, 0, 0.1) 100%);
+  animation: rayEffect 2s infinite alternate linear;
+}
+
+/* Add a subtle glow effect on hover for moon button */
+html.dark button[aria-label*="light mode"]:hover::before {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: radial-gradient(circle at center, transparent 60%, rgba(255, 255, 255, 0.05) 100%);
+  animation: moonGlowEffect 3s infinite alternate linear;
+}
+
+@keyframes rayEffect {
+  0% {
+    transform: scale(1);
+    opacity: 0.2;
+  }
+  100% {
+    transform: scale(1.3);
+    opacity: 0;
+  }
+}
+
+@keyframes moonGlowEffect {
+  0% {
+    transform: scale(1);
+    opacity: 0.1;
+  }
+  100% {
+    transform: scale(1.2);
+    opacity: 0;
+  }
+}
+
+/* Fix for theme toggle transitions */
+.theme-transition * {
+  transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease, 
+              box-shadow 0.3s ease, transform 0.3s ease !important;
+}
+
+/* Ensure theme toggle is visible in both modes */
+.toggle-icon {
+  opacity: 0.9;
+}
+
+.toggle-icon:hover {
+  opacity: 1;
+}

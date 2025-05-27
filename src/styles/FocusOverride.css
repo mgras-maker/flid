@@ -1,0 +1,114 @@
+/* 
+  FocusOverride.css
+  Global CSS overrides for focus states to remove red outlines
+  This file takes precedence over all other CSS files
+*/
+
+/* Global focus override to remove all outlines */
+*:focus,
+*:focus-visible {
+  outline: none !important;
+  border-color: transparent !important;
+  box-shadow: none !important;
+  -webkit-box-shadow: none !important;
+  -webkit-tap-highlight-color: transparent !important;
+}
+
+/* Additional high-specificity selectors to override all other styles */
+html body *:focus,
+html body *:focus-visible,
+html body button:focus,
+html body button:focus-visible,
+html body a:focus,
+html body a:focus-visible,
+html body input:focus,
+html body input:focus-visible,
+html body img:focus,
+html body img:focus-visible,
+html body svg:focus,
+html body svg:focus-visible {
+  outline: none !important;
+  outline-width: 0 !important;
+  outline-color: transparent !important;
+  border-color: transparent !important;
+  border-width: 0 !important;
+  box-shadow: none !important;
+}
+
+/* Specific overrides for various elements */
+a:focus,
+a:focus-visible,
+button:focus,
+button:focus-visible,
+input:focus,
+input:focus-visible,
+select:focus,
+select:focus-visible,
+textarea:focus,
+textarea:focus-visible,
+[tabindex]:focus,
+[tabindex]:focus-visible {
+  outline: none !important;
+  border-color: transparent !important;
+  box-shadow: none !important;
+}
+
+/* Fix for logo and images in links */
+a img,
+a svg,
+.logo,
+.logo-image,
+.creative-navbar-logo,
+img,
+svg {
+  outline: none !important;
+  border: none !important;
+}
+
+/* Override for links containing images or SVGs */
+a:has(img),
+a:has(svg) {
+  outline: none !important;
+  border: none !important;
+}
+
+/* Fix for any element that uses :focus-within */
+*:focus-within {
+  outline: none !important;
+  border-color: transparent !important;
+}
+
+/* Override browser default focus styles */
+:root {
+  --focus-ring-color: transparent !important;
+  --webkit-focus-ring-color: transparent !important;
+}
+
+/* Directly target the browser-default outline styles */
+:focus {
+  outline-color: transparent !important;
+  outline-style: none !important;
+  outline-width: 0 !important;
+}
+
+/* Highest specificity override for button and link focus - will catch all cases */
+html body .creative-navbar a,
+html body .creative-navbar a:focus,
+html body .creative-navbar a:focus-visible,
+html body button,
+html body button:focus,
+html body button:focus-visible,
+html body a.logo,
+html body a.logo:focus,
+html body a.logo:focus-visible,
+html body .logo-image,
+html body .creative-navbar-logo {
+  outline: 0 !important;
+  outline-style: none !important;
+  outline-width: 0 !important;
+  outline-color: transparent !important;
+  border: 0 !important;
+  border-style: none !important;
+  border-color: transparent !important;
+  box-shadow: none !important;
+}

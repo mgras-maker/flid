@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1200" height="630" viewBox="0 0 1200 630" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#121212;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#2a2a2a;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#4a90e2;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#8555c7;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bgGradient)"/>
+  
+  <!-- Logo -->
+  <g transform="translate(275, 175) scale(1.5)" fill="url(#logoGradient)">
+    <path d="M50 50 H 150 V 70 H 70 V 90 H 140 V 110 H 70 V 150 H 50 Z" />
+    <path d="M170 50 H 190 V 130 H 250 V 150 H 170 Z" />
+    <path d="M270 50 H 290 V 150 H 270 Z" />
+    <path d="M320 50 H 370 Q 390 50 400 60 Q 410 70 410 85 Q 410 100 400 110 Q 390 120 370 120 H 340 V 150 H 320 Z M 340 70 V 100 H 360 Q 370 100 375 95 Q 380 90 380 85 Q 380 80 375 75 Q 370 70 360 70 Z" />
+    <text x="430" y="150" font-family="Arial, sans-serif" font-size="120" fill="url(#logoGradient)">.</text>
+  </g>
+  
+  <!-- Tagline -->
+  <text x="600" y="450" font-family="Arial, sans-serif" font-size="32" text-anchor="middle" fill="white">Fundacja Ludzie-Innowacje-Design</text>
+  <text x="600" y="500" font-family="Arial, sans-serif" font-size="24" text-anchor="middle" fill="#cccccc">Innowacyjne rozwiązania dla ludzi</text>
+</svg>

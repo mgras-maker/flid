@@ -1,0 +1,254 @@
+/* 
+  MobileDarkMode.css
+  Specific dark mode enhancements for mobile navigation and responsive elements
+*/
+
+/* Mobile navbar dark mode enhancements */
+html.dark .mobile-menu-container {
+  background: linear-gradient(135deg, 
+    rgba(var(--background-rgb), 0.97) 0%,
+    rgba(var(--card-bg-rgb), 0.95) 100%
+  );
+  backdrop-filter: blur(25px);
+  -webkit-backdrop-filter: blur(25px);
+}
+
+/* Mobile menu overlay in dark mode */
+html.dark .mobile-menu-overlay {
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+/* Mobile navigation links dark mode */
+html.dark .mobile-nav-link {
+  color: var(--text);
+  
+  &:hover {
+    background-color: rgba(var(--accent-rgb), 0.1);
+    color: var(--accent);
+  }
+  
+  &.active {
+    background-color: rgba(var(--accent-rgb), 0.15);
+    color: var(--accent);
+  }
+}
+
+/* Mobile theme toggle wrapper */
+html.dark .mobile-theme-wrapper {
+  background-color: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 50%;
+}
+
+/* Mobile menu header theme toggle - ensure visibility and perfect circle */
+html.dark .mobile-menu-header .mobile-theme-wrapper,
+html.dark .mobile-menu-header [aria-label*="mode"] {
+  background-color: var(--card-bg);
+  border-color: var(--border);
+  opacity: 1;
+  visibility: visible;
+  width: 44px !important;
+  height: 44px !important;
+  border-radius: 50% !important;
+  aspect-ratio: 1 !important;
+  flex-shrink: 0 !important;
+  transform: none !important;
+}
+
+/* Mobile hamburger menu icon in dark mode */
+html.dark .menu-bar {
+  background: var(--text);
+}
+
+/* Mobile menu social links in dark mode */
+html.dark .mobile-social-links a {
+  color: var(--text-secondary);
+  
+  &:hover {
+    color: var(--accent);
+    transform: translateY(-2px);
+  }
+}
+
+/* Mobile menu footer in dark mode */
+html.dark .mobile-menu-footer {
+  border-top-color: var(--border);
+  background-color: rgba(var(--background-rgb), 0.5);
+}
+
+/* Touch interactions in dark mode */
+html.dark .touch-target {
+  background-color: var(--card-bg);
+  border-color: var(--border);
+  
+  &:active {
+    background-color: rgba(var(--accent-rgb), 0.2);
+    transform: scale(0.95);
+  }
+}
+
+/* Mobile form elements in dark mode */
+@media (max-width: 768px) {
+  html.dark input,
+  html.dark textarea,
+  html.dark select {
+    background-color: var(--background-alt);
+    border: 2px solid var(--border);
+    color: var(--text);
+    font-size: 16px; /* Prevent zoom on iOS */
+    
+    &:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(var(--accent-rgb), 0.2);
+    }
+  }
+  
+  html.dark button {
+    background-color: var(--card-bg);
+    border-color: var(--border);
+    color: var(--text);
+    min-height: 44px; /* Ensure touch target size */
+    
+    &:hover,
+    &:active {
+      background-color: rgba(var(--accent-rgb), 0.1);
+      border-color: var(--accent);
+    }
+  }
+}
+
+/* Mobile card hover states in dark mode */
+@media (max-width: 768px) {
+  html.dark .card:active,
+  html.dark [class*="Card"]:active {
+    transform: scale(0.98);
+    background-color: var(--background-alt);
+  }
+}
+
+/* Mobile modal and popover dark mode */
+@media (max-width: 768px) {
+  html.dark .modal,
+  html.dark .popover,
+  html.dark [class*="Modal"],
+  html.dark [class*="Popover"] {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+  }
+}
+
+/* Mobile drawer and sidebar dark mode */
+html.dark .drawer,
+html.dark .sidebar,
+html.dark [class*="Drawer"],
+html.dark [class*="Sidebar"] {
+  background-color: var(--card-bg);
+  border-color: var(--border);
+  box-shadow: 4px 0 20px rgba(0, 0, 0, 0.3);
+}
+
+/* Mobile tabs and segmented controls in dark mode */
+html.dark .tabs,
+html.dark .segmented-control,
+html.dark [class*="Tab"] {
+  background-color: var(--background-alt);
+  border-color: var(--border);
+  
+  .tab-active,
+  .segment-active {
+    background-color: var(--accent);
+    color: white;
+  }
+}
+
+/* Mobile safe area adjustments for dark mode */
+@supports (padding: max(0px)) {
+  html.dark .mobile-safe-top {
+    padding-top: max(20px, env(safe-area-inset-top));
+  }
+  
+  html.dark .mobile-safe-bottom {
+    padding-bottom: max(20px, env(safe-area-inset-bottom));
+  }
+}
+
+/* Mobile keyboard avoiding view in dark mode */
+@media (max-width: 768px) {
+  html.dark .keyboard-avoiding {
+    background-color: var(--background);
+  }
+}
+
+/* Mobile swipe gestures feedback in dark mode */
+html.dark .swipe-indicator {
+  background-color: var(--accent);
+  opacity: 0.6;
+}
+
+/* Mobile loading states in dark mode */
+html.dark .mobile-loading {
+  background-color: var(--card-bg);
+  color: var(--text-secondary);
+}
+
+html.dark .loading-spinner {
+  border-color: var(--border);
+  border-top-color: var(--accent);
+}
+
+/* Mobile error and success states */
+html.dark .mobile-error {
+  background-color: rgba(239, 68, 68, 0.1);
+  border-color: #ef4444;
+  color: #f87171;
+}
+
+html.dark .mobile-success {
+  background-color: rgba(16, 185, 129, 0.1);
+  border-color: #10b981;
+  color: #34d399;
+}
+
+/* Mobile bottom sheets in dark mode */
+html.dark .bottom-sheet {
+  background-color: var(--card-bg);
+  border-top: 1px solid var(--border);
+  border-radius: 16px 16px 0 0;
+}
+
+html.dark .bottom-sheet-handle {
+  background-color: var(--text-secondary);
+  opacity: 0.5;
+}
+
+/* Mobile action sheets in dark mode */
+html.dark .action-sheet {
+  background-color: var(--card-bg);
+  border-color: var(--border);
+}
+
+html.dark .action-sheet-item {
+  color: var(--text);
+  border-bottom-color: var(--border);
+  
+  &:hover,
+  &:active {
+    background-color: rgba(var(--accent-rgb), 0.1);
+  }
+  
+  &.destructive {
+    color: #ef4444;
+  }
+}
+
+/* Mobile pull-to-refresh in dark mode */
+html.dark .pull-to-refresh {
+  background-color: var(--background);
+  color: var(--text-secondary);
+}
+
+html.dark .refresh-indicator {
+  color: var(--accent);
+}

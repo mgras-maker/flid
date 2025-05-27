@@ -1,0 +1,111 @@
+/* Dodatkowy fix dla ekranów 2K */
+
+html, body {
+  width: 100% !important;
+  height: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow-x: hidden !important;
+}
+
+#root {
+  width: 100% !important;
+  max-width: 100% !important;
+  overflow-x: hidden !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+main {
+  width: 100% !important;
+  max-width: 100% !important;
+  overflow-x: hidden !important;
+}
+
+.page-transition-container {
+  width: 100% !important;
+  max-width: 100% !important;
+  overflow-x: hidden !important;
+}
+
+/* Specjalny fix dla ProjectsPage */
+.projects-page-container {
+  width: 100% !important;
+  max-width: 100% !important;
+  overflow-x: hidden !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  min-height: 100vh !important;
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+.projects-gallery {
+  display: grid !important;
+  width: calc(100% - 6rem) !important;
+  max-width: 1800px !important;
+  margin: 0 auto 6rem auto !important;
+  position: relative !important;
+  z-index: 5 !important;
+}
+
+/* Zapewnienie widoczności elementów na stronie projektów */
+.projects-content-section {
+  position: relative !important;
+  z-index: 5 !important;
+  min-height: 100vh !important;
+  display: flex !important;
+  flex-direction: column !important;
+  flex: 1 !important;
+}
+
+.projects-controls-container {
+  position: relative !important;
+  z-index: 5 !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+/* Fix widoczności elementów na stronie projektów */
+.controls-container {
+  position: relative !important;
+  z-index: 2 !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  display: flex !important;
+}
+
+.category-nav {
+  display: flex !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  position: relative !important;
+  z-index: 2 !important;
+}
+
+.search-container {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  position: relative !important;
+  z-index: 2 !important;
+}
+
+.results-count {
+  visibility: visible !important;
+  opacity: 1 !important;
+  position: relative !important;
+  z-index: 2 !important;
+}
+
+@media (min-width: 2000px) {
+  .projects-gallery {
+    width: calc(100% - 10rem) !important;
+    max-width: 2400px !important;
+  }
+    body, html, #root, main, .page-transition-container {
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow-x: hidden !important;
+  }
+}

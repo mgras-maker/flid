@@ -1,0 +1,85 @@
+/* 
+  NavFixes.css
+  Special CSS fixes for navigation issues like blue flashing during page transitions
+  Enhanced for subtle, elegant animations and lavender theme
+*/
+
+/* Body transition smoothing when changing pages */
+body {
+  animation: smoothPageTransition 0.5s ease-out;
+  -webkit-tap-highlight-color: transparent; /* Eliminates mobile tap highlights */
+}
+
+/* Ensure immediate rendering to prevent flashing */
+* {
+  backface-visibility: hidden;
+  transform-style: preserve-3d;
+}
+
+/* Styled links but without preventing pointer events */
+a:-webkit-any-link,
+a:link,
+a:hover,
+a:active,
+a:visited,
+a.active,
+a:focus {
+  color: inherit !important;
+  text-decoration: none !important;
+  transition-property: color, background-color, transform, box-shadow, filter !important;
+  transition-duration: 0.3s !important;
+  transition-timing-function: cubic-bezier(0.25, 0.1, 0.25, 1.0) !important;
+  pointer-events: auto !important;
+  cursor: pointer !important;
+}
+
+/* React Router specific fixes with enhanced specificity */
+a[href^="/"] {
+  color: inherit !important;
+  text-decoration: none !important;
+  position: relative;
+  outline: none;
+  pointer-events: auto !important;
+  cursor: pointer !important;
+}
+
+/* Add lavender underline animation to nav links */
+.nav-link::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: -4px;
+  left: 0;
+  background-color: var(--accent);
+  box-shadow: 0 0 6px var(--accent-light);
+  transition: width 0.3s cubic-bezier(0.25, 0.1, 0.25, 1.0), 
+              box-shadow 0.3s cubic-bezier(0.25, 0.1, 0.25, 1.0);
+}
+
+.nav-link:hover::after, 
+.nav-link.active::after {
+  width: 100%;
+  box-shadow: 0 0 10px var(--accent);
+}
+
+/* Enhanced focus states with lavender accents - red outline removed */
+a:focus-visible {
+  outline: none !important;
+  outline-offset: 2px !important;
+  border-radius: 2px;
+}
+
+/* During page transitions, prevent any navigation color changes */
+.page-transition-active a, 
+.page-transition-active button {
+  transition: none !important;
+  color: inherit !important;
+  pointer-events: none !important;
+}
+
+/* Completely disable all transition effects during navigation load */
+html.page-transition-loading * {
+  transition: none !important;
+  animation: none !important;
+}

@@ -1,0 +1,66 @@
+/* 
+  Ten plik zawiera style dla bardziej zaawansowanych płynnych przejść między 
+  trybem jasnym i ciemnym, bez efektu "skakania" elementów
+*/
+
+/* Ustaw wspólne wartości przejść */
+:root {
+  --theme-transition-duration: 800ms;
+  --theme-transition-timing: cubic-bezier(0.25, 0.1, 0.25, 1);
+  --theme-transition-subtle-opacity: 0.98;
+}
+
+/* Optymalizacja dla wszystkich elementów - zapobiega migotaniu podczas przejść */
+.theme-transition-optimized {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* Zapobieganie przesunięć elementów podczas zmiany trybu */
+.theme-transition .container,
+.theme-transition .layout-wrapper,
+.theme-transition .page-content {
+  transform: translateZ(0);
+  will-change: contents;
+  contain: layout style;
+}
+
+/* Subtelne przejście dla tła strony */
+html.theme-transition {
+  animation: subtleFadeTransition var(--theme-transition-duration) var(--theme-transition-timing);
+}
+
+@keyframes subtleFadeTransition {
+  0% {
+    background-blend-mode: normal;
+  }
+  50% {
+    background-blend-mode: multiply;
+  }
+  100% {
+    background-blend-mode: normal;
+  }
+}
+
+/* Zapobiega przesunięciu zawartości przez zmianę rozmiaru paska przewijania */
+.theme-transition body {
+  /* overflow-y: scroll; */ /* DISABLED - Causing double scrollbar */
+  scrollbar-width: thin; /* Dla Firefoxa */
+}
+
+/* Delikatne przejście dla cieni w trybie ciemnym */
+html.dark .card,
+html.dark .button,
+html.dark .nav-item,
+html.theme-transition .card,
+html.theme-transition .button,
+html.theme-transition .nav-item {
+  transition: box-shadow var(--theme-transition-duration) var(--theme-transition-timing);
+}
+
+/* Zapobiega "błyskom" obrazów podczas przejścia */
+.theme-transition img {
+  opacity: var(--theme-transition-subtle-opacity);
+  transition: opacity var(--theme-transition-duration) var(--theme-transition-timing);
+}

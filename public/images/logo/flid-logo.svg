@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="500" height="200" viewBox="0 0 500 200" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#4a90e2;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#8555c7;stop-opacity:1" />
+    </linearGradient>    <style>
+      @keyframes dotPulse {
+        0% { opacity: 1; transform: scale(1); }
+        50% { opacity: 0.7; transform: scale(1.2); }
+        100% { opacity: 1; transform: scale(1); }
+      }
+      @keyframes letterHover {
+        0% { transform: translateY(0); }
+        100% { transform: translateY(-3px); }
+      }
+      .logo-letter {
+        transition: all 0.3s ease;
+        transform-origin: center;
+        cursor: pointer;
+      }
+      #logo-group:hover .logo-letter:nth-child(1) { animation: letterHover 0.5s ease 0.05s forwards; }
+      #logo-group:hover .logo-letter:nth-child(2) { animation: letterHover 0.5s ease 0.1s forwards; }
+      #logo-group:hover .logo-letter:nth-child(3) { animation: letterHover 0.5s ease 0.15s forwards; }
+      #logo-group:hover .logo-letter:nth-child(4) { animation: letterHover 0.5s ease 0.2s forwards; }
+      #logo-group:hover .logo-dot { animation-duration: 1s; }
+      .logo-dot {
+        transform-origin: center;
+        animation: dotPulse 2s infinite ease-in-out;
+      }
+      .subtitle {
+        font-family: 'Arial', sans-serif;
+        font-size: 14px;
+        letter-spacing: 1px;
+        opacity: 0.9;
+        transition: opacity 0.3s ease;
+      }
+      #logo-group:hover + .subtitle {
+        opacity: 1;
+      }
+    </style>
+  </defs>
+  <g id="logo-group">
+    <path class="logo-letter" d="M50 50 H 150 V 70 H 70 V 90 H 140 V 110 H 70 V 150 H 50 Z" fill="url(#logoGradient)" />
+    <path class="logo-letter" d="M170 50 H 190 V 130 H 250 V 150 H 170 Z" fill="url(#logoGradient)" />
+    <path class="logo-letter" d="M270 50 H 290 V 150 H 270 Z" fill="url(#logoGradient)" />
+    <path class="logo-letter" d="M320 50 H 370 Q 390 50 400 60 Q 410 70 410 85 Q 410 100 400 110 Q 390 120 370 120 H 340 V 150 H 320 Z M 340 70 V 100 H 360 Q 370 100 375 95 Q 380 90 380 85 Q 380 80 375 75 Q 370 70 360 70 Z" fill="url(#logoGradient)" />
+    <circle class="logo-dot" cx="430" cy="130" r="12" fill="url(#logoGradient)" />
+  </g>
+  <text class="subtitle" x="50" y="180" fill="currentColor">fundacja ludzie-innowacje-design</text>
+</svg>

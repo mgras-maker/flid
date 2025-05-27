@@ -1,0 +1,76 @@
+/* 
+ * SubtlePageTransitions.css
+ * Subtelne animacje przejść między stronami
+ * Optymalizowane dla płynnego user experience
+ */
+
+/* Kontener dla przejść stron z izolacją GPU */
+.page-transition-container {
+  position: relative;
+  isolation: isolate;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  will-change: transform, opacity, filter;
+  min-height: 100vh;
+  /* Zapewnienie właściwego z-index dla animacji wyjścia */
+  z-index: 1;
+}
+
+/* Podczas przejścia - pozwalamy na animację wyjścia */
+.page-transition-container[data-exiting="true"] {
+  z-index: 2;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  pointer-events: none;
+}
+
+/* Subtelne ulepszenia dla elementów podczas przejścia */
+.page-transition-loading .page-content {
+  pointer-events: none;
+}
+
+/* Ulepszenia dla płynności przewijania */
+.page-content {
+  /* scroll-behavior: smooth; */
+  scroll-behavior: auto;
+}
+
+/* Dodatkowe style dla lepszej wydajności animacji */
+.page-content * {
+  transform-style: preserve-3d;
+}
+
+/* Preferencje użytkownika - redukcja animacji */
+@media (prefers-reduced-motion: reduce) {
+  .page-transition-container,
+  .page-content {
+    animation: none !important;
+    transition: none !important;
+  }
+  
+  .page-transition-container * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Ulepszenia dla urządzeń o niskiej wydajności */
+@media (max-width: 768px) {
+  .page-transition-container {
+    will-change: transform, opacity; /* Usunięty filter dla lepszej wydajności na mobile */
+  }
+}
+
+/* Styl dla focus states podczas animacji */
+.page-transition-loading *:focus {
+  outline: none;
+}
+
+/* Po zakończeniu animacji przywróć normalne zachowanie */
+.page-content:not(.page-transition-loading) *:focus {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}

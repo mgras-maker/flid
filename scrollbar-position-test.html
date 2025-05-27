@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🔍 Scrollbar Position Test - FLID HomePage</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            min-height: 300vh; /* Force scrollbar */
+        }
+        
+        /* Mimic FLID navbar */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 80px;
+            background: rgba(255,255,255,0.9);
+            backdrop-filter: blur(12px);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #333;
+            font-weight: 600;
+            box-shadow: 0 4px 30px rgba(0,0,0,0.1);
+        }
+        
+        /* Mimic FLID main content */
+        .main-content {
+            padding-top: 80px; /* Match navbar height */
+            min-height: 300vh;
+        }
+        
+        /* Mimic HomePage ProcessContainer */
+        .process-container {
+            margin-top: 60px; /* ProcessContainer margin-top */
+            padding: 2rem;
+            background: rgba(255,255,255,0.1);
+            border-radius: 12px;
+            margin-left: 2rem;
+            margin-right: 2rem;
+        }
+        
+        .diagnostic-panel {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            padding: 24px;
+            border-radius: 12px;
+            margin: 20px;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        
+        .measurements {
+            font-family: monospace;
+            font-size: 14px;
+            background: rgba(0,0,0,0.3);
+            padding: 16px;
+            border-radius: 8px;
+            margin: 16px 0;
+            white-space: pre-wrap;
+        }
+        
+        .scrollbar-indicator {
+            position: fixed;
+            top: 80px; /* Should start below navbar */
+            right: 0;
+            width: 20px;
+            height: 100px;
+            background: rgba(255,0,0,0.5);
+            border: 2px solid red;
+            z-index: 2000;
+            pointer-events: none;
+        }
+        
+        .scrollbar-indicator::before {
+            content: 'Scrollbar Zone';
+            position: absolute;
+            right: 25px;
+            top: 10px;
+            color: red;
+            font-weight: bold;
+            font-size: 12px;
+            white-space: nowrap;
+        }
+        
+        button {
+            background: rgba(255,255,255,0.2);
+            border: 1px solid rgba(255,255,255,0.3);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            margin: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        button:hover {
+            background: rgba(255,255,255,0.3);
+            transform: translateY(-2px);
+        }
+        
+        .test-section {
+            margin: 40px 20px;
+            padding: 20px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 12px;
+        }
+        
+        .highlight {
+            background: rgba(255,255,0,0.3);
+            padding: 2px 4px;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        🔍 SCROLLBAR POSITION TEST - FLID HomePage Simulation
+    </div>
+    
+    <div class="scrollbar-indicator"></div>
+    
+    <div class="main-content">
+        <div class="diagnostic-panel">
+            <h2>🎯 Scrollbar Position Analysis</h2>
+            <p>This test simulates the FLID HomePage structure to identify scrollbar positioning issues.</p>
+            
+            <div class="measurements" id="measurements">
+                Loading measurements...
+            </div>
+            
+            <button onclick="measureScrollbar()">🔍 Measure Scrollbar</button>
+            <button onclick="testScrolling()">📜 Test Scrolling</button>
+            <button onclick="window.open('http://localhost:3014', '_blank')">🌐 Open FLID App</button>
+        </div>
+        
+        <div class="process-container">
+            <h3>Process Section (ProcessContainer simulation)</h3>
+            <p>This mimics the HomePage ProcessContainer with:</p>
+            <ul>
+                <li><span class="highlight">margin-top: 60px</span> (from ProcessContainer)</li>
+                <li><span class="highlight">padding-top: 80px</span> (from Main)</li>
+                <li>Total space from top: <span class="highlight">140px</span></li>
+            </ul>
+        </div>
+        
+        <div class="test-section">
+            <h3>Scrollbar Position Test Points</h3>
+            <div id="scrollbar-tests">
+                <p>⚡ Testing scrollbar positioning relative to navbar...</p>
+            </div>
+        </div>
+        
+        <div class="test-section">
+            <h3>Expected Issues to Check:</h3>
+            <ul>
+                <li>Scrollbar appearing under/behind the navbar</li>
+                <li>Scrollbar not aligned with content area</li>
+                <li>Z-index conflicts between navbar and scrollbar</li>
+                <li>Incorrect scrollbar positioning on different screen sizes</li>
+            </ul>
+        </div>
+        
+        <!-- More content to ensure scrolling -->
+        <div class="test-section">
+            <h3>Content Section 1</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+        </div>
+        
+        <div class="test-section">
+            <h3>Content Section 2</h3>
+            <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+        </div>
+        
+        <div class="test-section">
+            <h3>Content Section 3</h3>
+            <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+        </div>
+        
+        <div class="test-section">
+            <h3>Final Test Section</h3>
+            <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+        </div>
+    </div>
+
+    <script>
+        function measureScrollbar() {
+            const measurements = {
+                windowWidth: window.innerWidth,
+                windowHeight: window.innerHeight,
+                documentWidth: document.documentElement.scrollWidth,
+                documentHeight: document.documentElement.scrollHeight,
+                clientWidth: document.documentElement.clientWidth,
+                clientHeight: document.documentElement.clientHeight,
+                scrollbarWidth: window.innerWidth - document.documentElement.clientWidth,
+                scrollbarHeight: window.innerHeight - document.documentElement.clientHeight,
+                bodyScrollLeft: document.body.scrollLeft,
+                bodyScrollTop: document.body.scrollTop,
+                documentScrollLeft: document.documentElement.scrollLeft,
+                documentScrollTop: document.documentElement.scrollTop,
+                navbarHeight: 80,
+                navbarZIndex: 1000,
+                mainPaddingTop: 80,
+                processContainerMarginTop: 60,
+                totalTopSpace: 140
+            };
+            
+            const display = document.getElementById('measurements');
+            display.textContent = `
+📊 SCROLLBAR POSITION MEASUREMENTS:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Window Dimensions:    ${measurements.windowWidth}px × ${measurements.windowHeight}px
+Document Dimensions:  ${measurements.documentWidth}px × ${measurements.documentHeight}px
+Client Dimensions:    ${measurements.clientWidth}px × ${measurements.clientHeight}px
+
+Scrollbar Width:      ${measurements.scrollbarWidth}px
+Scrollbar Height:     ${measurements.scrollbarHeight}px
+
+Current Scroll:       Left=${measurements.documentScrollLeft}px, Top=${measurements.documentScrollTop}px
+
+FLID Layout Analysis:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Navbar Height:        ${measurements.navbarHeight}px (z-index: ${measurements.navbarZIndex})
+Main padding-top:     ${measurements.mainPaddingTop}px
+ProcessContainer m-t: ${measurements.processContainerMarginTop}px
+Total Top Space:      ${measurements.totalTopSpace}px
+
+Scrollbar Position Analysis:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Expected scrollbar start: ${measurements.navbarHeight}px from top
+Actual scrollbar start:   0px from top (browser default)
+
+⚠️  ISSUE: Scrollbar starts at top (0px) but navbar covers 0-80px
+⚠️  This means the top ${measurements.navbarHeight}px of scrollbar is hidden behind navbar!
+            `;
+        }
+        
+        function testScrolling() {
+            const testResults = document.getElementById('scrollbar-tests');
+            testResults.innerHTML = '<p>🧪 Running scrollbar tests...</p>';
+            
+            let results = [];
+            
+            // Test 1: Check if scrollbar is visible behind navbar
+            const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+            if (scrollbarWidth > 0) {
+                results.push(`✅ Scrollbar detected: ${scrollbarWidth}px wide`);
+                
+                // Test scrollbar position
+                const navbar = document.querySelector('.navbar');
+                const navbarRect = navbar.getBoundingClientRect();
+                
+                results.push(`📍 Navbar position: top=${navbarRect.top}px, height=${navbarRect.height}px`);
+                results.push(`❗ Scrollbar area: starts at 0px, overlapped by navbar until ${navbarRect.height}px`);
+                
+                if (navbarRect.height > 0) {
+                    results.push(`🚨 ISSUE CONFIRMED: Top ${navbarRect.height}px of scrollbar is hidden behind navbar!`);
+                }
+            } else {
+                results.push(`❌ No scrollbar detected (content fits in window)`);
+            }
+            
+            // Test 2: Scroll position tests
+            const originalScrollTop = window.pageYOffset;
+            
+            // Scroll to test positions
+            window.scrollTo(0, 0);
+            setTimeout(() => {
+                results.push(`📜 Scroll test at top: scrollY=${window.pageYOffset}px`);
+                
+                window.scrollTo(0, 100);
+                setTimeout(() => {
+                    results.push(`📜 Scroll test at 100px: scrollY=${window.pageYOffset}px`);
+                    
+                    // Restore original position
+                    window.scrollTo(0, originalScrollTop);
+                    
+                    testResults.innerHTML = results.map(r => `<p>${r}</p>`).join('');
+                }, 100);
+            }, 100);
+        }
+        
+        // Auto-measure on load
+        window.addEventListener('load', measureScrollbar);
+        window.addEventListener('resize', measureScrollbar);
+        window.addEventListener('scroll', () => {
+            // Update scroll measurements in real-time
+            const display = document.getElementById('measurements');
+            if (display.textContent.includes('Current Scroll:')) {
+                measureScrollbar();
+            }
+        });
+        
+        // Add visual indicator for scrollbar area
+        function updateScrollbarIndicator() {
+            const indicator = document.querySelector('.scrollbar-indicator');
+            const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+            
+            if (scrollbarWidth > 0) {
+                indicator.style.display = 'block';
+                indicator.style.width = scrollbarWidth + 'px';
+                indicator.innerHTML = '<div style="position:absolute;right:' + (scrollbarWidth + 5) + 'px;top:5px;color:red;font-size:10px;font-weight:bold;">Scrollbar<br>' + scrollbarWidth + 'px</div>';
+            } else {
+                indicator.style.display = 'none';
+            }
+        }
+        
+        updateScrollbarIndicator();
+        window.addEventListener('resize', updateScrollbarIndicator);
+    </script>
+</body>
+</html>

@@ -1,0 +1,30 @@
+/* 
+  LogoFix.css
+  Special CSS fix for logo outline issues
+*/
+
+/* Remove any outlines from the logo and logo links */
+.logo-image,
+a:has(.logo-image),
+a:has(img),
+.creative-navbar-logo img,
+.creative-navbar-logo,
+.logo {
+  outline: none !important;
+  border: none !important;
+}
+
+/* Fix for any logo area */
+.LogoContainer a:focus,
+.LogoContainer a:focus-visible,
+.logo-container a:focus,
+.logo-container a:focus-visible {
+  outline: none !important;
+  border: none !important;
+}
+
+/* Fix for any SVG elements that might have outlines */
+svg:focus,
+svg:focus-visible {
+  outline: none !important;
+}

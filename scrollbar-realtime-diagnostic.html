@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🔍 Diagnostyka scrollbara w czasie rzeczywistym</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            min-height: 100vh;
+        }
+        
+        .diagnostic-panel {
+            background: rgba(255, 255, 255, 0.95);
+            color: #333;
+            padding: 20px;
+            border-radius: 16px;
+            margin-bottom: 20px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            backdrop-filter: blur(10px);
+        }
+        
+        .status-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 16px;
+            margin: 16px 0;
+        }
+        
+        .status-item {
+            padding: 12px;
+            border-radius: 8px;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 12px;
+            border: 2px solid;
+            transition: all 0.3s ease;
+        }
+        
+        .good { 
+            background: #e8f5e8; 
+            color: #2e7d32; 
+            border-color: #4CAF50;
+        }
+        
+        .warning { 
+            background: #fff3e0; 
+            color: #f57c00; 
+            border-color: #FF9800;
+            animation: pulse 2s infinite;
+        }
+        
+        .error { 
+            background: #ffebee; 
+            color: #c62828; 
+            border-color: #F44336;
+            animation: shake 0.5s;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+        
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+        
+        button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            margin: 8px;
+            font-weight: 500;
+            transition: transform 0.2s ease;
+        }
+        
+        button:hover {
+            transform: translateY(-2px);
+        }
+        
+        .real-time-log {
+            background: #1a1a1a;
+            color: #00ff00;
+            padding: 16px;
+            border-radius: 8px;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 11px;
+            max-height: 300px;
+            overflow-y: auto;
+            border: 2px solid #333;
+        }
+        
+        .log-entry {
+            margin: 4px 0;
+            padding: 2px 0;
+        }
+        
+        .timestamp { color: #888; }
+        .critical { color: #ff6b6b; font-weight: bold; }
+        .warning-log { color: #ffa726; }
+        .success-log { color: #66bb6a; }
+        .info-log { color: #42a5f5; }
+        
+        .measurement-box {
+            border: 2px dashed #666;
+            padding: 16px;
+            margin: 16px 0;
+            border-radius: 8px;
+            background: rgba(255,255,255,0.1);
+        }
+        
+        .scrollbar-detector {
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 200px;
+            background: rgba(0,0,0,0.9);
+            color: white;
+            padding: 10px;
+            font-size: 10px;
+            z-index: 9999;
+            border-radius: 0 0 0 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="scrollbar-detector" id="detector">
+        <div>🔍 Detektor scrollbara</div>
+        <div id="detector-status">Monitorowanie...</div>
+    </div>
+
+    <h1>🔍 Diagnostyka scrollbara w czasie rzeczywistym</h1>
+    <p>Zaawansowane narzędzie do śledzenia pojawienia się dodatkowego scrollbara</p>
+    
+    <div class="diagnostic-panel">
+        <h3>📊 Status systemu scrollbara</h3>
+        <div class="status-grid">
+            <div id="scrollbar-width" class="status-item">Ładowanie...</div>
+            <div id="viewport-width" class="status-item">Ładowanie...</div>
+            <div id="document-width" class="status-item">Ładowanie...</div>
+            <div id="overflow-status" class="status-item">Ładowanie...</div>
+        </div>
+        
+        <div class="measurement-box">
+            <strong>Pomiary w czasie rzeczywistym:</strong>
+            <div id="measurements">Inicjalizacja...</div>
+        </div>
+    </div>
+    
+    <div class="diagnostic-panel">
+        <h3>🎯 Kontrola testów</h3>
+        <button onclick="openMainApp()">🚀 Otwórz główną aplikację</button>
+        <button onclick="refreshMainApp()">🔄 Odśwież główną aplikację</button>
+        <button onclick="startContinuousMonitoring()">📡 Rozpocznij ciągłe monitorowanie</button>
+        <button onclick="simulateScrollbarFlash()">⚡ Symuluj miganie scrollbara</button>
+        <button onclick="takeSnapshot()">📸 Zrób snapshot</button>
+        <button onclick="clearLog()">🗑️ Wyczyść log</button>
+    </div>
+    
+    <div class="diagnostic-panel">
+        <h3>📝 Log w czasie rzeczywistym</h3>
+        <div id="realtime-log" class="real-time-log">
+            <div class="log-entry info-log">
+                <span class="timestamp">[INIT]</span> System diagnostyczny uruchomiony
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let monitoringActive = false;
+        let measurements = [];
+        let lastScrollbarState = null;
+        
+        function log(message, type = 'info') {
+            const logContainer = document.getElementById('realtime-log');
+            const timestamp = new Date().toISOString().split('T')[1].split('.')[0];
+            
+            const icons = {
+                'critical': '🚨',
+                'warning': '⚠️',
+                'success': '✅',
+                'info': 'ℹ️'
+            };
+            
+            const entry = document.createElement('div');
+            entry.className = `log-entry ${type}-log`;
+            entry.innerHTML = `<span class="timestamp">[${timestamp}]</span> ${icons[type] || 'ℹ️'} ${message}`;
+            
+            logContainer.insertBefore(entry, logContainer.firstChild);
+            
+            // Keep only last 50 entries
+            while (logContainer.children.length > 50) {
+                logContainer.removeChild(logContainer.lastChild);
+            }
+            
+            // Auto-scroll to top
+            logContainer.scrollTop = 0;
+        }
+        
+        function measureScrollbar() {
+            const windowWidth = window.innerWidth;
+            const documentWidth = document.documentElement.clientWidth;
+            const scrollbarWidth = windowWidth - documentWidth;
+            
+            const htmlStyle = getComputedStyle(document.documentElement);
+            const bodyStyle = getComputedStyle(document.body);
+            
+            return {
+                hasScrollbar: scrollbarWidth > 0,
+                scrollbarWidth: scrollbarWidth,
+                windowWidth: windowWidth,
+                documentWidth: documentWidth,
+                htmlOverflow: htmlStyle.overflowY,
+                bodyOverflow: bodyStyle.overflowY,
+                htmlScrollbarWidth: htmlStyle.scrollbarWidth,
+                timestamp: Date.now()
+            };
+        }
+        
+        function updateStatus() {
+            const measurement = measureScrollbar();
+            measurements.push(measurement);
+            
+            // Keep only last 100 measurements
+            if (measurements.length > 100) {
+                measurements.shift();
+            }
+            
+            // Update status boxes
+            document.getElementById('scrollbar-width').innerHTML = `
+                <strong>Scrollbar Width:</strong><br>
+                ${measurement.scrollbarWidth}px
+                ${measurement.hasScrollbar ? '⚠️ DETECTED' : '✅ NONE'}
+            `;
+            document.getElementById('scrollbar-width').className = `status-item ${measurement.hasScrollbar ? 'warning' : 'good'}`;
+            
+            document.getElementById('viewport-width').innerHTML = `
+                <strong>Viewport:</strong><br>
+                Window: ${measurement.windowWidth}px<br>
+                Document: ${measurement.documentWidth}px
+            `;
+            document.getElementById('viewport-width').className = 'status-item good';
+            
+            document.getElementById('overflow-status').innerHTML = `
+                <strong>Overflow Settings:</strong><br>
+                HTML: ${measurement.htmlOverflow}<br>
+                Body: ${measurement.bodyOverflow}<br>
+                Scrollbar-width: ${measurement.htmlScrollbarWidth}
+            `;
+            document.getElementById('overflow-status').className = 'status-item good';
+            
+            // Update detector
+            const detector = document.getElementById('detector-status');
+            detector.innerHTML = `
+                Status: ${measurement.hasScrollbar ? '🚨 SCROLLBAR' : '✅ CLEAN'}<br>
+                Width: ${measurement.scrollbarWidth}px<br>
+                Time: ${new Date().toLocaleTimeString()}
+            `;
+            
+            // Check for changes
+            if (lastScrollbarState !== null && lastScrollbarState !== measurement.hasScrollbar) {
+                if (measurement.hasScrollbar) {
+                    log(`🚨 SCROLLBAR POJAWIŁ SIĘ! Szerokość: ${measurement.scrollbarWidth}px`, 'critical');
+                } else {
+                    log(`✅ Scrollbar zniknął`, 'success');
+                }
+            }
+            
+            lastScrollbarState = measurement.hasScrollbar;
+            
+            // Update measurements display
+            const measurementsDiv = document.getElementById('measurements');
+            measurementsDiv.innerHTML = `
+                Ostatni pomiar: ${new Date().toLocaleTimeString()}<br>
+                Scrollbar: ${measurement.hasScrollbar ? 'TAK' : 'NIE'} (${measurement.scrollbarWidth}px)<br>
+                Viewport: ${measurement.windowWidth}px / ${measurement.documentWidth}px<br>
+                Overflow: HTML(${measurement.htmlOverflow}) Body(${measurement.bodyOverflow})
+            `;
+        }
+        
+        function startContinuousMonitoring() {
+            if (monitoringActive) {
+                log('Monitorowanie już aktywne', 'warning');
+                return;
+            }
+            
+            monitoringActive = true;
+            log('🚀 Rozpoczęto ciągłe monitorowanie scrollbara', 'success');
+            
+            // Monitor every 100ms
+            const interval = setInterval(() => {
+                if (!monitoringActive) {
+                    clearInterval(interval);
+                    return;
+                }
+                updateStatus();
+            }, 100);
+            
+            // Also monitor on various events
+            ['scroll', 'resize', 'load', 'DOMContentLoaded'].forEach(event => {
+                window.addEventListener(event, () => {
+                    if (monitoringActive) {
+                        updateStatus();
+                        log(`Event detected: ${event}`, 'info');
+                    }
+                });
+            });
+        }
+        
+        function openMainApp() {
+            log('Otwieranie głównej aplikacji...', 'info');
+            const mainWindow = window.open('http://localhost:3005', 'mainapp', 'width=1200,height=800');
+            
+            if (mainWindow) {
+                log('✅ Główna aplikacja otwarta w nowym oknie', 'success');
+                
+                // Try to monitor the main window
+                try {
+                    mainWindow.addEventListener('load', () => {
+                        log('📄 Główna aplikacja załadowana', 'info');
+                    });
+                } catch (e) {
+                    log('⚠️ Nie można monitorować głównego okna (CORS)', 'warning');
+                }
+            } else {
+                log('❌ Nie udało się otworzyć głównej aplikacji', 'critical');
+            }
+        }
+        
+        function refreshMainApp() {
+            log('Próba odświeżenia głównej aplikacji...', 'info');
+            try {
+                const mainWindow = window.open('http://localhost:3005', 'mainapp');
+                if (mainWindow) {
+                    setTimeout(() => {
+                        mainWindow.location.reload();
+                        log('🔄 Główna aplikacja odświeżona', 'success');
+                    }, 100);
+                }
+            } catch (e) {
+                log('❌ Błąd podczas odświeżania: ' + e.message, 'critical');
+            }
+        }
+        
+        function simulateScrollbarFlash() {
+            log('⚡ Symulowanie migania scrollbara...', 'warning');
+            
+            // Create temporary content to force scrollbar
+            const tempDiv = document.createElement('div');
+            tempDiv.style.cssText = `
+                height: 200vh;
+                width: 100%;
+                background: linear-gradient(to bottom, transparent, rgba(255,0,0,0.1));
+                position: absolute;
+                top: 0;
+                left: 0;
+                z-index: -1;
+            `;
+            document.body.appendChild(tempDiv);
+            
+            updateStatus();
+            
+            setTimeout(() => {
+                document.body.removeChild(tempDiv);
+                updateStatus();
+                log('✅ Symulacja zakończona', 'success');
+            }, 2000);
+        }
+        
+        function takeSnapshot() {
+            const measurement = measureScrollbar();
+            log(`📸 Snapshot: Scrollbar=${measurement.hasScrollbar}, Width=${measurement.scrollbarWidth}px, Time=${new Date().toLocaleTimeString()}`, 'info');
+        }
+        
+        function clearLog() {
+            document.getElementById('realtime-log').innerHTML = `
+                <div class="log-entry info-log">
+                    <span class="timestamp">[CLEAR]</span> ℹ️ Log wyczyszczony
+                </div>
+            `;
+            log('🗑️ Log wyczyszczony', 'info');
+        }
+        
+        // Initialize
+        updateStatus();
+        startContinuousMonitoring();
+        
+        log('🔍 Diagnostyka scrollbara zainicjalizowana', 'success');
+        log('💡 Otwórz główną aplikację i odśwież ją, aby wykryć miganie scrollbara', 'info');
+    </script>
+</body>
+</html>

@@ -1,0 +1,42 @@
+/* 
+  ClickFix.css
+  Specjalne style dla zapewnienia klikalności elementów w aplikacji
+*/
+
+/* Główny kontener navbara */
+#navbar-container {
+  position: relative !important;
+  z-index: 10000 !important;
+}
+
+/* Resetowanie problematycznych stylów */
+a, button, [role="button"], [type="button"] {
+  pointer-events: auto !important;
+  cursor: pointer !important;
+}
+
+/* Resetowanie problematycznych stylów dla elementów blokujących interakcje */
+body::before,
+body::after,
+#root::before,
+#root::after {
+  display: none !important;
+}
+
+/* Upewnienie się, że wszystkie elementy w nawigacji są klikalne */
+header.navbar-fixed,
+header.navbar-fixed * {
+  pointer-events: auto !important;
+}
+
+/* Usunięcie potencjalnie blokujących elementów */
+.page-transition-wrapper {
+  pointer-events: none !important;
+}
+
+/* Upewnienie się, że Layout nie blokuje kliknięć na navbar */
+main, .layout-wrapper {
+  pointer-events: auto !important;
+}
+
+/* Usunięte debugowe ramki */

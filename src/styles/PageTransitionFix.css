@@ -1,0 +1,35 @@
+/* Kompletne rozwiązanie problemu mrugniecia podczas przejść stron */
+
+/* Kontener dla animowanych rout */
+.animated-routes-container {
+  position: relative;
+  width: 100%;
+  background: var(--background);
+  overflow-x: hidden;
+  /* Zapobiegaj podwójnym scrollbarom podczas ładowania */
+  min-height: auto;
+}
+
+/* Zapobieganie mrugnieniu i smooth animations */
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Zabezpieczenie przed overflow */
+body {
+  overflow-x: hidden;
+  background: var(--background);  /* Stabilizuj wysokość podczas przejść */
+  min-height: 100vh;
+  height: auto;
+  /* Zapobiegaj miganiu scrollbara podczas ładowania */
+  /* overflow-y: scroll; */ /* DISABLED - Causing double scrollbar */
+}
+
+/* Smooth scrolling dla całej aplikacji */
+html {
+  /* scroll-behavior: smooth; */
+  scroll-behavior: auto;
+  /* Zapobiegaj miganiu scrollbara */
+  /* overflow-y: scroll; */ /* DISABLED - Causing double scrollbar */
+}

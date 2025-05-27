@@ -1,0 +1,372 @@
+/* 
+ * LavenderAnimations.css
+ * Advanced animation effects with lavender theme
+ * For FLID design studio website
+ */
+
+/* Subtle fade-in animation with our brand lavender glow #D2CDE8 */
+@keyframes lavenderFadeIn {
+  0% {
+    opacity: 0;
+    filter: blur(10px);
+    box-shadow: 0 0 0 rgba(var(--lavender-rgb), 0);
+  }
+  60% {
+    filter: blur(3px);
+    opacity: 0.8;
+  }
+  100% {
+    opacity: 1;
+    filter: blur(0);
+    box-shadow: 0 0 20px rgba(var(--lavender-rgb), 0.4);
+  }
+}
+
+/* Elegant slide-up animation with lavender accent */
+@keyframes lavenderSlideUp {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Pulse animation for attention-grabbing elements */
+@keyframes lavenderPulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(var(--lavender-rgb), 0.6);
+  }
+  70% {
+    box-shadow: 0 0 0 12px rgba(var(--lavender-rgb), 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(var(--lavender-rgb), 0);
+  }
+}
+
+/* Gradient shift animation for backgrounds */
+@keyframes lavenderGradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Utility classes for animations */
+
+/* Apply to elements that should fade in with lavender effects */
+.lavender-fade-in {
+  animation: lavenderFadeIn 1s cubic-bezier(0.19, 1.0, 0.22, 1.0) forwards;
+}
+
+/* Apply to elements that should slide up with opacity change */
+.lavender-slide-up {
+  animation: lavenderSlideUp 0.8s cubic-bezier(0.19, 1.0, 0.22, 1.0) forwards;
+}
+
+/* Elements that need attention - subtle pulsing effect */
+.lavender-pulse {
+  animation: lavenderPulse 2s infinite cubic-bezier(0.45, 0, 0.55, 1);
+}
+
+/* Beautiful gradient backgrounds that slowly shift colors based on brand color */
+.lavender-gradient {
+  background: linear-gradient(135deg, 
+    var(--lavender-200), /* Light lavender */
+    var(--primary), /* Brand color #D2CDE8 */
+    var(--lavender-500), /* Rich lavender */
+    var(--accent-dark) /* Deep lavender */
+  );
+  background-size: 300% 300%;
+  animation: lavenderGradientShift 15s ease infinite;
+}
+
+/* Staggered animation for lists of elements */
+.staggered-item {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.staggered-item.animate {
+  animation: lavenderSlideUp 0.7s cubic-bezier(0.19, 1.0, 0.22, 1.0) forwards;
+}
+
+/* Special delay utilities for staggered animations */
+.delay-1 { animation-delay: 0.1s; }
+.delay-2 { animation-delay: 0.2s; }
+.delay-3 { animation-delay: 0.3s; }
+.delay-4 { animation-delay: 0.4s; }
+.delay-5 { animation-delay: 0.5s; }
+
+/* HD display optimizations */
+@media (min-width: 1920px) {
+  .lavender-fade-in,
+  .lavender-slide-up {
+    animation-duration: 1.2s; /* Slightly longer for smoother effect on HD */
+  }
+}
+
+/* Ultra HD optimizations */
+@media (min-width: 2560px) {
+  .lavender-gradient {
+    background-size: 400% 400%; /* Larger gradient for ultra HD */
+  }
+}
+
+/* NEW CREATIVE ANIMATIONS */
+
+/* Text reveal with clipping mask */
+.text-reveal {
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+}
+
+.text-reveal span {
+  display: inline-block;
+  transform: translateY(100%);
+  opacity: 0;
+  animation: textReveal 1.2s cubic-bezier(0.19, 1.0, 0.22, 1.0) forwards;
+}
+
+@keyframes textReveal {
+  0% { 
+    transform: translateY(100%);
+    opacity: 0; 
+  }
+  100% { 
+    transform: translateY(0);
+    opacity: 1; 
+  }
+}
+
+/* Creative gradient border animation */
+.gradient-border {
+  position: relative;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.gradient-border::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;  background: linear-gradient(45deg, 
+    var(--primary), /* Brand color */
+    var(--lavender-700), /* Vibrant complementary */
+    var(--lavender-600), /* Deep lavender */
+    var(--lavender-200), /* Light lavender */
+    var(--primary)  /* Back to brand color */
+  );
+  background-size: 400% 400%;
+  z-index: -1;
+  animation: borderGradient 12s ease infinite;
+  border-radius: 10px;
+}
+
+@keyframes borderGradient {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Elegant floating animation with micro-movements */
+.float-subtle {
+  animation: floatSubtle 6s ease-in-out infinite;
+}
+
+@keyframes floatSubtle {
+  0% { transform: translateY(0) translateX(0) rotate(0deg); }
+  25% { transform: translateY(-5px) translateX(2px) rotate(0.5deg); }
+  50% { transform: translateY(0) translateX(0) rotate(0deg); }
+  75% { transform: translateY(4px) translateX(-2px) rotate(-0.5deg); }
+  100% { transform: translateY(0) translateX(0) rotate(0deg); }
+}
+
+/* Spotlight hover effect */
+.spotlight {
+  position: relative;
+  overflow: hidden;
+}
+
+.spotlight::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;  background: radial-gradient(
+    circle at center,
+    rgba(var(--lavender-rgb), 0.4) 0%,
+    rgba(var(--lavender-rgb), 0) 70%
+  );
+  opacity: 0;
+  transition: opacity 0.8s;
+  transform: scale(0.5);
+  pointer-events: none;
+}
+
+.spotlight:hover::after {
+  opacity: 1;
+  animation: spotlightEffect 1.2s ease;
+}
+
+@keyframes spotlightEffect {
+  0% {
+    transform: scale(0);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 0;
+  }
+}
+
+/* Text gradient animation */
+.text-gradient {  background: linear-gradient(
+    90deg,
+    var(--primary), /* Brand color */
+    var(--lavender-600), /* Deep lavender */
+    var(--lavender-700), /* Medium lavender */
+    var(--primary)  /* Back to brand color */
+  );
+  background-size: 300% auto;
+  color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: textGradientMove 8s linear infinite;
+}
+
+@keyframes textGradientMove {
+  0% { background-position: 0% center; }
+  50% { background-position: 100% center; }
+  100% { background-position: 0% center; }
+}
+
+/* Shine effect for cards and images */
+.shine-effect {
+  position: relative;
+  overflow: hidden;
+}
+
+.shine-effect::before {
+  content: '';
+  position: absolute;
+  top: -100%;
+  left: -150%;
+  width: 200%;
+  height: 200%;
+  opacity: 0;
+  background: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.3) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  transform: rotate(30deg);
+  transition: opacity 0.3s;
+}
+
+.shine-effect:hover::before {
+  opacity: 1;
+  animation: shineEffect 1.5s ease-in-out;
+}
+
+@keyframes shineEffect {
+  0% {
+    left: -150%;
+  }
+  100% {
+    left: 150%;
+  }
+}
+
+/* Morph background animation */
+.morph-bg {
+  position: relative;
+  z-index: 1;
+}
+
+.morph-bg::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;  background: radial-gradient(
+    circle at 0% 0%,
+    rgba(var(--lavender-rgb), 0.15),
+    rgba(var(--lavender-rgb), 0) 50%
+  );
+  z-index: -1;
+  opacity: 0.5;
+  animation: morphBackground 15s ease-in-out infinite alternate;
+}
+
+@keyframes morphBackground {
+  0% {
+    background-position: 0% 0%;
+  }
+  50% {
+    background-position: 100% 100%;
+  }
+  100% {
+    background-position: 0% 0%;
+  }
+}
+
+/* Elegant loader animation */
+.elegant-loader {
+  display: inline-block;
+  position: relative;
+  width: 40px;
+  height: 40px;
+}
+
+.elegant-loader::before,
+.elegant-loader::after {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  animation: pulse-ring 1.8s cubic-bezier(0.19, 1.0, 0.22, 1.0) infinite;
+}
+
+.elegant-loader::before {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(var(--lavender-rgb), 0.6);
+  animation-delay: 0.5s;
+}
+
+.elegant-loader::after {
+  width: 60%;
+  height: 60%;
+  background-color: rgba(var(--lavender-rgb), 0.9);
+  top: 20%;
+  left: 20%;
+}
+
+@keyframes pulse-ring {
+  0% {
+    transform: scale(0.7);
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    transform: scale(1.2);
+    opacity: 0;
+  }
+}

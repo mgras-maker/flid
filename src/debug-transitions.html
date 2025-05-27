@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debug Page Transitions</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 20px;
+            background: #f5f5f5;
+        }
+        .debug-panel {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        .log-entry {
+            padding: 8px;
+            margin: 4px 0;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 12px;
+        }
+        .route-change { background: #e3f2fd; }
+        .animation-start { background: #f3e5f5; }
+        .animation-complete { background: #e8f5e8; }
+        .error { background: #ffebee; }
+        button {
+            padding: 10px 20px;
+            margin: 5px;
+            border: none;
+            border-radius: 4px;
+            background: #2196f3;
+            color: white;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #1976d2;
+        }
+    </style>
+</head>
+<body>
+    <h1>Page Transition Debug Console</h1>
+    
+    <div class="debug-panel">
+        <h3>Current Status</h3>
+        <p><strong>Current URL:</strong> <span id="current-url">-</span></p>
+        <p><strong>Animation State:</strong> <span id="animation-state">-</span></p>
+        <p><strong>Last Animation:</strong> <span id="last-animation">-</span></p>
+    </div>
+    
+    <div class="debug-panel">
+        <h3>Test Navigation</h3>
+        <button onclick="openApp()">Open Main App</button>
+        <button onclick="clearLogs()">Clear Logs</button>
+    </div>
+    
+    <div class="debug-panel">
+        <h3>Animation Logs</h3>
+        <div id="logs"></div>
+    </div>
+
+    <script>
+        function openApp() {
+            window.open('http://localhost:5179', '_blank');
+        }
+        
+        function clearLogs() {
+            document.getElementById('logs').innerHTML = '';
+        }
+        
+        function addLog(message, type = 'info') {
+            const logs = document.getElementById('logs');
+            const entry = document.createElement('div');
+            entry.className = `log-entry ${type}`;
+            entry.textContent = new Date().toISOString() + ' - ' + message;
+            logs.insertBefore(entry, logs.firstChild);
+        }
+        
+        // Check if we can access the main window and listen to its console
+        function checkMainApp() {
+            try {
+                // This won't work due to cross-frame restrictions, but we can simulate
+                addLog('Debug console ready', 'info');
+            } catch (e) {
+                addLog('Cannot access main app console: ' + e.message, 'error');
+            }
+        }
+        
+        checkMainApp();
+        
+        // Update current URL periodically
+        setInterval(() => {
+            document.getElementById('current-url').textContent = window.location.href;
+        }, 1000);
+    </script>
+</body>
+</html>

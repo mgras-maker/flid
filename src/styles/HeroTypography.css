@@ -1,0 +1,172 @@
+/* HeroTypography.css */
+/* Minimalistyczne style typograficzne dla sekcji hero */
+
+.hero-title {
+  position: relative;
+  overflow: visible;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  margin-bottom: 2rem !important;
+  display: inline-block;
+  color: #333;
+}
+
+.title-main {
+  font-size: clamp(2.5rem, 5vw, 4.5rem);
+  line-height: 1;
+  display: inline-block;
+  position: relative;
+}
+
+.title-main::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -0.5rem;
+  width: 100px;
+  height: 4px;
+  background: #000;
+  animation: expandLine 1.5s ease-out forwards 0.8s;
+  transform-origin: left;
+  transform: scaleX(0.5);
+}
+
+.title-secondary {
+  font-size: clamp(2rem, 4.5vw, 4rem);
+  line-height: 1.2;
+}
+
+@keyframes expandLine {
+  to {
+    transform: scaleX(1);
+  }
+}
+
+.hero-subtitle {
+  max-width: 36rem;
+  font-weight: 400;
+  line-height: 1.6;
+  color: #555;
+  font-size: 1.2rem;
+  margin-top: 1.5rem;
+}
+
+/* Minimalistyczne efekty tekstowe */
+.accent-dot {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: #000;
+  margin: 0 8px;
+  vertical-align: middle;
+}
+
+/* Style dla tekstu akcentowanego */
+.text-accent {
+  color: var(--accent);
+  position: relative;
+  font-weight: bold;
+  padding-bottom: 2px;
+  border-bottom: 2px solid var(--accent);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .hero-title {
+    position: relative;
+  }
+
+  .hero-title::before {
+    content: '';
+    position: absolute;
+    left: -10px;
+    top: -10px;
+    width: 40px;
+    height: 40px;
+    border-top: 2px solid var(--accent);
+    border-left: 2px solid var(--accent);
+    opacity: 0;
+    animation: cornerAppear 1s ease forwards 0.5s;
+  }
+  
+  @keyframes cornerAppear {
+    to {
+      opacity: 1;
+      transform: translate(-5px, -5px);
+    }
+  }
+  
+  .hero-title .text-accent {
+    position: relative;
+    display: inline-block;
+    color: var(--accent);
+    transition: color 0.5s ease;
+  }
+  
+  .hero-title .text-accent::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 0.15em;
+    background: var(--accent);
+    transform: scaleX(0);
+    transform-origin: left;
+    animation: underlineAnimation 1.5s forwards 1.2s;
+  }
+  
+  @keyframes underlineAnimation {
+    to {
+      transform: scaleX(1);
+    }
+  }
+
+  /* Word-by-word fade-in for tagline */
+  .accent-dot {
+    animation: pulseColor 3s infinite;
+  }
+  
+  @keyframes pulseColor {
+    0%, 100% { color: var(--accent); }
+    50% { color: var(--primary); }
+  }
+}
+
+/* Enhanced hero buttons with subtle hover effect */
+.hero-section .button {
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-section .button::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0.2),
+    rgba(255, 255, 255, 0)
+  );
+  transform: skewX(-15deg);
+  transition: all 0.5s ease;
+}
+
+.hero-section .button:hover::after {
+  left: 100%;
+}
+
+/* Accessibility enhancements */
+@media (prefers-reduced-motion: reduce) {
+  .hero-title .text-accent {
+    text-decoration: underline;
+    text-decoration-color: var(--accent);
+    text-decoration-thickness: 0.1em;
+  }
+  
+  .hero-section .button::after {
+    display: none;
+  }
+}

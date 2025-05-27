@@ -1,0 +1,33 @@
+/* DiagramDarkMode.css - Dark mode styles for the design process diagram */
+
+/* Define CSS variables for diagram colors that can be used with dark mode */
+:root {
+  /* Color variables for the diagram in light mode */
+  --diagram-default-color: #333333;
+  --diagram-lavender-color: #B284BE; 
+  --diagram-text-color: #4A5568;
+  --diagram-background: transparent;
+}
+
+/* Dark mode overrides */
+html.dark {
+  --diagram-default-color: #D1D1D6; /* Light gray for dark mode */
+  --diagram-lavender-color: #B2A6DE; /* Lighter lavender for contrast in dark mode */
+  --diagram-text-color: #E0E0E8; /* Light text for dark mode */
+  --diagram-background: transparent;
+}
+
+/* Apply theme transition to diagram elements */
+.theme-transition .diagram-element {
+  transition: stroke 0.5s ease, fill 0.5s ease;
+}
+
+/* Additional dark mode specific styling for the process diagram section */
+html.dark .process-diagram-section {
+  /* Add any dark mode specific styling for the containing section */
+}
+
+/* Improve visibility of special elements in dark mode */
+html.dark .diagram-highlight {
+  filter: drop-shadow(0 0 3px rgba(255, 255, 255, 0.3));
+}

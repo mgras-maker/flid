@@ -1,0 +1,300 @@
+/* 
+  DarkModeEnhancements.css
+  Comprehensive dark mode enhancements for all components and interactive elements
+*/
+
+/* Enhanced form elements in dark mode */
+html.dark input,
+html.dark textarea,
+html.dark select {
+  background-color: var(--background-alt);
+  border-color: var(--border);
+  color: var(--text);
+  
+  &::placeholder {
+    color: var(--text-secondary);
+    opacity: 0.7;
+  }
+  
+  &:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(var(--accent-rgb), 0.2);
+  }
+}
+
+/* Enhanced button styles in dark mode */
+html.dark button:not([aria-label*="mode"]) {
+  background-color: var(--card-bg);
+  border-color: var(--border);
+  color: var(--text);
+  
+  &:hover {
+    background-color: var(--background-alt);
+    border-color: var(--accent-light);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(var(--accent-rgb), 0.2);
+  }
+  
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+/* Primary buttons in dark mode */
+html.dark button.primary,
+html.dark .primary {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+  color: white;
+  border-color: var(--primary);
+  
+  &:hover {
+    background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
+    box-shadow: 0 6px 20px rgba(var(--primary-rgb), 0.4);
+  }
+}
+
+/* Secondary buttons in dark mode */
+html.dark button.secondary,
+html.dark .secondary {
+  background-color: transparent;
+  color: var(--accent);
+  border-color: var(--accent);
+  
+  &:hover {
+    background-color: rgba(var(--accent-rgb), 0.1);
+    transform: translateY(-2px);
+  }
+}
+
+/* Card components in dark mode */
+html.dark .card,
+html.dark [class*="Card"],
+html.dark [class*="card"] {
+  background-color: var(--card-bg);
+  border-color: var(--border);
+  
+  &:hover {
+    border-color: var(--accent-light);
+    box-shadow: 0 8px 25px rgba(var(--accent-rgb), 0.15);
+  }
+}
+
+/* Navigation elements in dark mode */
+html.dark nav a,
+html.dark .nav-link {
+  color: var(--text);
+  
+  &:hover {
+    color: var(--accent);
+  }
+  
+  &.active {
+    color: var(--accent);
+  }
+}
+
+/* Modal and overlay elements in dark mode */
+html.dark .modal,
+html.dark .overlay,
+html.dark [class*="Modal"],
+html.dark [class*="Overlay"] {
+  background-color: rgba(var(--background-rgb), 0.95);
+  backdrop-filter: blur(20px);
+  border-color: var(--border);
+}
+
+/* Dropdown and menu elements in dark mode */
+html.dark .dropdown,
+html.dark .menu,
+html.dark [class*="Dropdown"],
+html.dark [class*="Menu"] {
+  background-color: var(--card-bg);
+  border-color: var(--border);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+/* List and grid items in dark mode */
+html.dark .list-item,
+html.dark .grid-item,
+html.dark [class*="Item"] {
+  background-color: var(--card-bg);
+  border-color: var(--border);
+  
+  &:hover {
+    background-color: var(--background-alt);
+    border-color: var(--accent-light);
+  }
+}
+
+/* Enhanced scrollbar in dark mode - DISABLED to prevent double scrollbars */
+/*
+html.dark ::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+html.dark ::-webkit-scrollbar-track {
+  background: var(--background-alt);
+  border-radius: 4px;
+}
+
+html.dark ::-webkit-scrollbar-thumb {
+  background: var(--accent-light);
+  border-radius: 4px;
+  
+  &:hover {
+    background: var(--accent);
+  }
+}
+*/
+
+/* Table elements in dark mode */
+html.dark table {
+  background-color: var(--card-bg);
+  color: var(--text);
+}
+
+html.dark th,
+html.dark td {
+  border-color: var(--border);
+}
+
+html.dark th {
+  background-color: var(--background-alt);
+  color: var(--text);
+}
+
+html.dark tr:hover {
+  background-color: rgba(var(--accent-rgb), 0.05);
+}
+
+/* Code blocks in dark mode */
+html.dark pre,
+html.dark code {
+  background-color: var(--neutral-200);
+  color: var(--text);
+  border-color: var(--border);
+}
+
+/* Selection styles in dark mode */
+html.dark ::selection {
+  background-color: rgba(var(--accent-rgb), 0.3);
+  color: var(--text);
+}
+
+/* Focus indicators in dark mode */
+html.dark *:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* Enhanced hover effects for interactive elements */
+html.dark .interactive,
+html.dark [class*="Button"],
+html.dark [class*="Link"],
+html.dark [role="button"],
+html.dark [role="link"] {
+  transition: all 0.3s cubic-bezier(0.19, 1.0, 0.22, 1.0);
+  
+  &:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(var(--accent-rgb), 0.2);
+  }
+}
+
+/* Disabled states in dark mode */
+html.dark [disabled],
+html.dark .disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  
+  &:hover {
+    transform: none;
+    box-shadow: none;
+  }
+}
+
+/* Loading states in dark mode */
+html.dark .loading,
+html.dark [aria-busy="true"] {
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+/* Error states in dark mode */
+html.dark .error,
+html.dark [aria-invalid="true"] {
+  border-color: #ef4444;
+  color: #f87171;
+}
+
+html.dark .error-message {
+  color: #f87171;
+}
+
+/* Success states in dark mode */
+html.dark .success {
+  border-color: #10b981;
+  color: #34d399;
+}
+
+html.dark .success-message {
+  color: #34d399;
+}
+
+/* Warning states in dark mode */
+html.dark .warning {
+  border-color: #f59e0b;
+  color: #fbbf24;
+}
+
+html.dark .warning-message {
+  color: #fbbf24;
+}
+
+/* Enhanced animation performance in dark mode */
+html.dark * {
+  will-change: auto;
+}
+
+html.dark .animating {
+  will-change: transform, opacity;
+}
+
+/* High contrast support */
+@media (prefers-contrast: high) {
+  html.dark {
+    --border: #4D4D65;
+    --text: #FFFFFF;
+    --text-secondary: #E0E0E8;
+    --accent: #D0C8F0;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  html.dark *,
+  html.dark *::before,
+  html.dark *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Print styles for dark mode */
+@media print {
+  html.dark {
+    --background: white;
+    --text: black;
+    --card-bg: white;
+    --border: #ccc;
+  }
+  
+  html.dark * {
+    background: white !important;
+    color: black !important;
+    box-shadow: none !important;
+  }
+}

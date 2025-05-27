@@ -1,0 +1,472 @@
+/* 
+ * PageTransitions.css
+ * Advanced page transitions optimized for creative design studio website
+ * Implements lavender accent colors and supports HD displays
+ * Enhanced to eliminate any flickering during page navigation
+ */
+
+/* Base page transition styles with elegantly refined animations */
+.page-wrapper {
+  opacity: 0;
+  animation: pageEnter 0.7s cubic-bezier(0.19, 1.0, 0.22, 1.0) forwards;
+  will-change: opacity, transform, filter;
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+}
+
+/* Enhanced animation for page enters with creative and elegant motion */
+@keyframes pageEnter {  0% {
+    opacity: 0;
+    transform: translateY(15px) scale(0.97);
+    filter: blur(6px);
+    box-shadow: 0 0 0 rgba(var(--lavender-rgb), 0);
+  }
+  35% {
+    opacity: 0.7;
+    filter: blur(2px);
+  }
+  70% {
+    box-shadow: 0 0 30px rgba(var(--lavender-rgb), 0.2);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+    box-shadow: 0 0 0 rgba(var(--lavender-rgb), 0);
+  }
+}
+
+/* Prevent any flashes during navigation with comprehensive isolation */
+.page-transition-container {
+  position: relative;
+  isolation: isolate;
+  transform: translateZ(0);
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+  overflow-x: hidden; /* Prevent horizontal shifting */
+  will-change: opacity, transform, clip-path, filter;
+  /* overflow: hidden; */ /* DISABLED - Prevents normal browser scrollbar */
+}
+
+/* Style dla elementu podczas trwania animacji */
+.page-transition-loading {
+  cursor: wait;
+  /* overflow: hidden !important; */ /* DISABLED - Prevents normal browser scrollbar */
+}
+
+/* 3D perspective container for enhanced depth */
+.page-content {
+  perspective: 1200px;
+  transform-style: preserve-3d;
+  transform-origin: center center;
+  height: 100%;
+  width: 100%;
+}
+
+/* Stylizowana poświata dla nadchodzących elementów */
+.page-content::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, rgba(var(--lavender-rgb), 0.15), transparent);
+  opacity: 0;
+  transition: opacity 0.8s ease-out;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.page-content.active::before {
+  opacity: 1;
+}
+
+/* Creative neon glow effect during transitions */
+@keyframes neonGlow {  0% {
+    box-shadow: 0 0 5px rgba(var(--lavender-rgb), 0.1), 
+                0 0 10px rgba(var(--lavender-rgb), 0.1);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(var(--lavender-rgb), 0.3), 
+                0 0 40px rgba(var(--lavender-rgb), 0.2);
+  }
+  100% {
+    box-shadow: 0 0 5px rgba(var(--lavender-rgb), 0.1), 
+                0 0 10px rgba(var(--lavender-rgb), 0.1);
+  }
+}
+
+/* Auto-apply neon glow to active elements during page transitions */
+.page-transition-loading .page-content * {
+  animation: neonGlow 1.5s ease-in-out;
+}
+
+/* Elegancki efekt poślizgu dla elementów z klasą .creative-element */
+.creative-element {
+  transition: transform 0.8s cubic-bezier(0.25, 0.1, 0.25, 1.0),
+              opacity 0.8s cubic-bezier(0.25, 0.1, 0.25, 1.0);
+}
+
+.page-transition-loading .creative-element {
+  opacity: 0.8;
+  transform: translateY(30px) scale(0.98);
+}
+
+/* For section transitions within pages */
+.section-transition {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.8s cubic-bezier(0.19, 1.0, 0.22, 1.0), 
+              transform 0.8s cubic-bezier(0.19, 1.0, 0.22, 1.0);
+}
+
+/* New Creative Page Transitions Based on Brand Color #D2CDE8 */
+
+/* Creative fade reveal transition */
+.page-fade-reveal {
+  opacity: 0;
+  animation: pageFadeReveal 1s cubic-bezier(0.19, 1.0, 0.22, 1.0) forwards;
+}
+
+@keyframes pageFadeReveal {
+  0% {
+    opacity: 0;
+    clip-path: inset(0 0 100% 0);
+    transform: translateY(20px);
+  }
+  60% {
+    opacity: 0.6;
+    clip-path: inset(0 0 30% 0);
+    transform: translateY(10px);
+  }
+  100% {
+    opacity: 1;
+    clip-path: inset(0 0 0% 0);
+    transform: translateY(0);
+  }
+}
+
+/* Elegant side reveal transition */
+.page-side-reveal {
+  opacity: 0;
+  animation: pageSideReveal 1.2s cubic-bezier(0.19, 1.0, 0.22, 1.0) forwards;
+}
+
+@keyframes pageSideReveal {
+  0% {
+    opacity: 0;
+    clip-path: inset(0 100% 0 0);
+    transform: translateX(-20px);
+  }
+  60% {
+    opacity: 0.7;
+    clip-path: inset(0 30% 0 0);
+    transform: translateX(-10px);
+  }
+  100% {
+    opacity: 1;
+    clip-path: inset(0 0 0 0);
+    transform: translateX(0);
+  }
+}
+
+/* Creative zoom transition */
+.page-zoom {
+  opacity: 0;
+  animation: pageZoom 1.1s cubic-bezier(0.19, 1.0, 0.22, 1.0) forwards;
+  perspective: 1000px;
+}
+
+@keyframes pageZoom {
+  0% {
+    opacity: 0;
+    transform: scale(1.05) translateZ(-30px);
+    filter: blur(4px);
+  }
+  70% {
+    opacity: 0.8;
+    filter: blur(1px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateZ(0);
+    filter: blur(0);
+  }
+}
+
+/* Brand color reveal transition */
+.page-color-reveal {
+  position: relative;
+  animation: pageContentReveal 0.8s cubic-bezier(0.19, 1.0, 0.22, 1.0) forwards;
+  opacity: 0;
+}
+
+.page-color-reveal::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(var(--lavender-rgb), 0.2); /* Brand color with transparency */
+  transform-origin: left;
+  transform: scaleX(1);
+  z-index: 10;
+  animation: pageColorWipe 1.2s cubic-bezier(0.19, 1.0, 0.22, 1.0) forwards;
+}
+
+@keyframes pageContentReveal {
+  0% {
+    opacity: 0;
+  }
+  40% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes pageColorWipe {
+  0% {
+    transform: scaleX(1);
+  }
+  100% {
+    transform: scaleX(0);
+  }
+}
+
+/* Modern split reveal transition */
+.page-split-reveal {
+  position: relative;
+  opacity: 0;
+  animation: pageSplitReveal 0.8s cubic-bezier(0.19, 1.0, 0.22, 1.0) 0.4s forwards;
+}
+
+.page-split-reveal::before,
+.page-split-reveal::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 50%;
+  background-color: rgba(var(--lavender-rgb), 0.15); /* Brand color */
+  z-index: 10;
+  left: 0;
+}
+
+.page-split-reveal::before {
+  top: 0;
+  transform-origin: top;
+  animation: splitRevealTop 1.2s cubic-bezier(0.19, 1.0, 0.22, 1.0) forwards;
+}
+
+.page-split-reveal::after {
+  bottom: 0;
+  transform-origin: bottom;
+  animation: splitRevealBottom 1.2s cubic-bezier(0.19, 1.0, 0.22, 1.0) forwards;
+}
+
+@keyframes pageSplitReveal {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes splitRevealTop {
+  0% {
+    transform: scaleY(1);
+  }
+  100% {
+    transform: scaleY(0);
+  }
+}
+
+@keyframes splitRevealBottom {
+  0% {
+    transform: scaleY(1);
+  }
+  100% {
+    transform: scaleY(0);
+  }
+}
+
+/* Perspective tilt transition */
+.page-tilt {
+  opacity: 0;
+  perspective: 1200px;
+  animation: pageTilt 1s cubic-bezier(0.19, 1.0, 0.22, 1.0) forwards;
+}
+
+@keyframes pageTilt {
+  0% {
+    opacity: 0;
+    transform: rotateX(5deg) translateY(20px);
+  }
+  60% {
+    opacity: 0.7;
+  }
+  100% {
+    opacity: 1;
+    transform: rotateX(0deg) translateY(0);
+  }
+}
+
+/* Section transition improvements */
+.section-fade-up {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.8s cubic-bezier(0.19, 1.0, 0.22, 1.0);
+}
+
+.section-fade-up.appear {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.section-fade-side {
+  opacity: 0;
+  transform: translateX(-30px);
+  transition: all 0.8s cubic-bezier(0.19, 1.0, 0.22, 1.0);
+}
+
+.section-fade-side.appear {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Refined hover effects with lavender accents */
+.hover-lift {
+  transition: transform 0.5s cubic-bezier(0.19, 1.0, 0.22, 1.0), 
+              box-shadow 0.5s cubic-bezier(0.19, 1.0, 0.22, 1.0);
+}
+
+.hover-lift:hover {
+  transform: translateY(-5px) translateZ(0);
+  box-shadow: 0 15px 30px rgba(var(--lavender-rgb), 0.15), 
+              0 5px 15px rgba(var(--lavender-rgb), 0.1);
+}
+
+/* Lavender accent effects with enhanced glow */
+.lavender-glow {
+  position: relative;
+  isolation: isolate;
+}
+
+.lavender-glow::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;  box-shadow: 0 0 0 rgba(var(--lavender-rgb), 0);
+  transition: box-shadow 0.5s cubic-bezier(0.19, 1.0, 0.22, 1.0),
+              opacity 0.5s cubic-bezier(0.19, 1.0, 0.22, 1.0);
+  pointer-events: none;
+  opacity: 0;
+  z-index: -1;
+}
+
+.lavender-glow:hover::after {
+  box-shadow: 0 0 25px rgba(var(--lavender-rgb), 0.6);
+  opacity: 1;
+}
+
+/* Image hover effects */
+.image-zoom-effect {
+  overflow: hidden;
+  border-radius: 8px;
+}
+
+.image-zoom-effect img {
+  transition: transform 0.8s cubic-bezier(0.19, 1.0, 0.22, 1.0);
+}
+
+.image-zoom-effect:hover img {
+  transform: scale(1.05);
+}
+
+/* HD Display optimizations with improved spacing and typography */
+@media (min-width: 1920px) {
+  .hd-content {
+    max-width: 1800px;
+    margin: 0 auto;
+    padding: 0 3rem;
+  }
+  
+  .hd-section {
+    padding: 5rem 0;
+    margin-bottom: 2rem;
+  }
+  
+  .hd-text {
+    font-size: 1.15rem;
+    letter-spacing: 0.01em;
+    line-height: 1.8;
+  }
+  
+  /* Enhanced image quality for HD */
+  .hd-image {
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+  }
+  
+  /* Refined spacing for HD layouts */
+  .hd-grid {
+    grid-gap: 3rem;
+  }
+  
+  .hd-card {
+    padding: 2.5rem;
+    border-radius: 1rem;
+  }
+
+  .page-wrapper,
+  .page-fade-reveal,
+  .page-side-reveal,
+  .page-zoom,
+  .page-color-reveal,
+  .page-split-reveal,
+  .page-tilt {
+    animation-duration: 1.2s; /* Slightly longer for smoother HD transitions */
+  }
+}
+
+/* Ultra HD display optimizations with further enhancements */
+@media (min-width: 2560px) {
+  .hd-content {
+    max-width: 2400px;
+    margin: 0 auto;
+    padding: 0 4rem;
+  }
+  
+  .hd-section {
+    padding: 6rem 0;
+    margin-bottom: 3rem;
+  }
+  
+  .hd-text {
+    font-size: 1.25rem;
+    letter-spacing: 0.02em;
+    line-height: 1.9;
+  }
+  
+  .hd-grid {
+    grid-gap: 4rem;
+  }
+  
+  .hd-card {
+    padding: 3rem;
+    border-radius: 1.2rem;
+  }
+  
+  /* Button sizing for Ultra HD */
+  .hd-button {
+    padding: 1.2rem 2.4rem;
+    font-size: 1.1rem;
+  }
+}

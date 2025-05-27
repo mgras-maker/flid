@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scrollbar Test - FLID</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background: #f5f5f5;
+        }
+        .test-panel {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        button {
+            padding: 10px 20px;
+            margin: 5px;
+            border: none;
+            border-radius: 4px;
+            background: #9B8DCC;
+            color: white;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        button:hover {
+            background: #7C6FBB;
+        }
+        .status {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 12px;
+        }
+        .good { background: #e8f5e8; color: #2e7d32; }
+        .warning { background: #fff3e0; color: #f57c00; }
+        .error { background: #ffebee; color: #c62828; }
+        .log-entry {
+            padding: 8px;
+            margin: 4px 0;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 12px;
+            background: #f0f0f0;
+        }
+    </style>
+</head>
+<body>
+    <h1>🔍 Scrollbar Behavior Test</h1>
+    
+    <div class="test-panel">
+        <h3>Current Status</h3>
+        <div id="scrollbar-status" class="status"></div>
+        <div id="overflow-status" class="status"></div>
+        <div id="webkit-status" class="status"></div>
+        <div id="dimensions-status" class="status"></div>
+    </div>
+    
+    <div class="test-panel">
+        <h3>Test Actions</h3>
+        <button onclick="openMainApp()">🚀 Open Main App</button>
+        <button onclick="refreshMainApp()">🔄 Refresh Main App</button>
+        <button onclick="testScrollbarVisibility()">👁️ Test Scrollbar Visibility</button>
+        <button onclick="clearLogs()">🗑️ Clear Logs</button>
+    </div>
+    
+    <div class="test-panel">
+        <h3>Real-time Logs</h3>
+        <div id="logs"></div>
+    </div>
+
+    <script>
+        function addLog(message, type = 'info') {
+            const logs = document.getElementById('logs');
+            const entry = document.createElement('div');
+            entry.className = 'log-entry';
+            entry.textContent = new Date().toISOString() + ' - ' + message;
+            logs.insertBefore(entry, logs.firstChild);
+            
+            // Keep only last 20 entries
+            while (logs.children.length > 20) {
+                logs.removeChild(logs.lastChild);
+            }
+        }
+        
+        function updateStatus() {
+            // Check scrollbar visibility
+            const hasScrollbar = window.innerWidth !== document.documentElement.clientWidth;
+            const scrollbarStatus = document.getElementById('scrollbar-status');
+            
+            if (hasScrollbar) {
+                scrollbarStatus.textContent = '⚠️ Browser scrollbar detected';
+                scrollbarStatus.className = 'status warning';
+            } else {
+                scrollbarStatus.textContent = '✅ No browser scrollbar detected';
+                scrollbarStatus.className = 'status good';
+            }
+            
+            // Check overflow settings
+            const htmlStyle = getComputedStyle(document.documentElement);
+            const bodyStyle = getComputedStyle(document.body);
+            const overflowStatus = document.getElementById('overflow-status');
+            
+            const htmlOverflow = htmlStyle.overflow || htmlStyle.overflowY;
+            const bodyOverflow = bodyStyle.overflow || bodyStyle.overflowY;
+            
+            overflowStatus.textContent = `HTML overflow: ${htmlOverflow}, Body overflow: ${bodyOverflow}`;
+            overflowStatus.className = 'status good';
+            
+            // Check webkit scrollbar settings
+            const webkitStatus = document.getElementById('webkit-status');
+            webkitStatus.textContent = `Scrollbar width disabled: ${htmlStyle.scrollbarWidth === 'none' ? '✅' : '❌'}`;
+            webkitStatus.className = htmlStyle.scrollbarWidth === 'none' ? 'status good' : 'status warning';
+            
+            // Check dimensions
+            const dimensionsStatus = document.getElementById('dimensions-status');
+            dimensionsStatus.textContent = `Window: ${window.innerWidth}x${window.innerHeight}, Document: ${document.documentElement.clientWidth}x${document.documentElement.clientHeight}`;
+            dimensionsStatus.className = 'status good';
+        }
+        
+        function openMainApp() {
+            addLog('Opening main application...');
+            window.open('http://localhost:3005', '_blank');
+        }
+        
+        function refreshMainApp() {
+            addLog('Attempting to refresh main app...');
+            // Try to refresh if we have access to the main app window
+            try {
+                const mainWindow = window.open('http://localhost:3005', 'mainapp');
+                setTimeout(() => {
+                    if (mainWindow) {
+                        mainWindow.location.reload();
+                        addLog('Main app refreshed successfully');
+                    }
+                }, 500);
+            } catch (e) {
+                addLog('Could not refresh main app: ' + e.message);
+            }
+        }
+        
+        function testScrollbarVisibility() {
+            addLog('Testing scrollbar visibility...');
+            
+            // Create a test element with forced overflow
+            const testDiv = document.createElement('div');
+            testDiv.style.cssText = `
+                position: fixed;
+                top: -1000px;
+                left: -1000px;
+                width: 100px;
+                height: 100px;
+                overflow-y: scroll;
+                visibility: hidden;
+            `;
+            
+            const testContent = document.createElement('div');
+            testContent.style.height = '200px';
+            testDiv.appendChild(testContent);
+            
+            document.body.appendChild(testDiv);
+            
+            const scrollbarWidth = testDiv.offsetWidth - testDiv.clientWidth;
+            document.body.removeChild(testDiv);
+            
+            addLog(`Browser scrollbar width: ${scrollbarWidth}px`);
+            
+            if (scrollbarWidth === 0) {
+                addLog('✅ Scrollbars are properly hidden');
+            } else {
+                addLog(`⚠️ Scrollbar width detected: ${scrollbarWidth}px`);
+            }
+        }
+        
+        function clearLogs() {
+            document.getElementById('logs').innerHTML = '';
+            addLog('Logs cleared');
+        }
+        
+        // Monitor for changes
+        const observer = new MutationObserver(() => {
+            updateStatus();
+        });
+        
+        observer.observe(document.body, {
+            attributes: true,
+            childList: true,
+            subtree: true,
+            attributeFilter: ['style', 'class']
+        });
+        
+        // Initial status update
+        updateStatus();
+        
+        // Update status periodically
+        setInterval(updateStatus, 2000);
+        
+        addLog('Scrollbar test initialized');
+        addLog('Monitor this while testing the main app for scrollbar flash issues');
+    </script>
+</body>
+</html>

@@ -1,0 +1,89 @@
+/* 
+  PageFixes.css
+  Fixes for page transitions and navigation issues
+
+  WAŻNE: Ten plik zawiera poprawki dla całej aplikacji.
+*/
+
+/* Make sure navbar is always visible and clickable */
+.navbar-fixed {
+  position: fixed !important;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 9999 !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  pointer-events: auto !important;
+}
+
+/* Smooth page transitions */
+.page-transition-enter {
+  opacity: 0;
+  filter: blur(4px);
+  transform: scale(0.98) translateY(12px);
+}
+
+.page-transition-enter-active {
+  opacity: 1;
+  filter: blur(0);
+  transform: scale(1) translateY(0);
+  transition: opacity 500ms, transform 500ms, filter 500ms;
+}
+
+.page-transition-exit {
+  opacity: 1;
+  filter: blur(0);
+  transform: scale(1) translateY(0);
+}
+
+.page-transition-exit-active {
+  opacity: 0;
+  filter: blur(3px);
+  transform: scale(0.99) translateY(-8px);
+  transition: opacity 500ms, transform 500ms, filter 500ms;
+}
+
+/* Fix for page transitions */
+.page-content {
+  position: relative;
+  z-index: 1;
+}
+
+/* Force navbar to always be visible and clickable */
+.navbar-wrapper {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  position: relative;
+  z-index: 9999 !important;
+  pointer-events: auto !important;
+}
+
+#root > div > nav,
+#root > div > header,
+#root .navbar-fixed {
+  display: flex !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  pointer-events: auto !important;
+  z-index: 9999 !important;
+}
+
+/* Fix dla ProjectsPage - zapewnienie widoczności elementów */
+.projects-gallery {
+  visibility: visible !important;
+  opacity: 1 !important;
+  z-index: 50 !important;
+}
+
+.project-card {
+  visibility: visible !important;
+  opacity: 1 !important;
+  z-index: 60 !important;
+}
+
+/* Fix dla nałożenia elementów */
+.creative-navbar {
+  z-index: 1000 !important;
+}

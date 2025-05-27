@@ -1,0 +1,101 @@
+/* 
+ * Dedicated Stable Custom Scrollbar - Working with React Component
+ * Prevents layout shifts during page transitions by maintaining consistent scrollbar space
+ */
+
+/* Hide default browser scrollbar completely */
+html, body, * {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+}
+
+/* Webkit browsers (Chrome, Safari, Edge) */
+html::-webkit-scrollbar,
+body::-webkit-scrollbar,
+*::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
+  background: transparent;
+}
+
+/* Ensure stable layout - reserve space for custom scrollbar */
+html {
+  /* overflow: hidden; */ /* DISABLED - Prevent default scrolling */
+  height: 100vh;
+  width: 100vw;
+  /* padding-right: 12px; */ /* DISABLED - Reserve space for custom scrollbar */
+}
+
+body {
+  /* overflow: hidden; */ /* DISABLED */
+  height: 100vh;
+  /* width: calc(100vw - 12px); */ /* DISABLED - Account for reserved scrollbar space */
+  width: 100vw;
+  margin: 0;
+  padding: 0;
+  position: relative;
+}
+
+/* Ensure the app root takes full space */
+#root {
+  height: 100vh;
+  width: 100%;
+  /* overflow: hidden; */ /* DISABLED */
+}
+
+/* Mobile responsiveness - adjust reserved space */
+@media (max-width: 768px) {
+  html {
+    padding-right: 8px;
+  }
+  
+  body {
+    width: calc(100vw - 8px);
+  }
+}
+
+/* Very small screens - minimal scrollbar space */
+@media (max-width: 480px) {
+  html {
+    padding-right: 6px;
+  }
+  
+  body {
+    width: calc(100vw - 6px);
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+    animation: none !important;
+  }
+}
+
+/* High contrast mode support - handled by React component */
+@media (prefers-contrast: high) {
+  /* Enhanced contrast handled in component */
+}
+
+/* Focus management for accessibility */
+.custom-scroll-container:focus {
+  outline: none;
+}
+
+/* Performance optimization */
+.custom-scrollbar,
+.custom-scrollbar-thumb {
+  will-change: transform, opacity;
+  contain: layout style paint;
+}
+
+/* Prevent text selection on scrollbar */
+.custom-scrollbar,
+.custom-scrollbar-thumb {
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}

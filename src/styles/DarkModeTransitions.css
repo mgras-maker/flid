@@ -1,0 +1,97 @@
+/* 
+  Dedicated styles for dark mode transition effects 
+  These styles ensure smooth transitions between themes
+*/
+
+/* Basic transition for HTML element - slower, more subtle transition */
+html {
+  transition: background-color 0.8s cubic-bezier(0.25, 0.1, 0.25, 1), 
+              color 0.8s cubic-bezier(0.25, 0.1, 0.25, 1);
+  will-change: background-color, color; /* Optymalizacja dla płynniejszych animacji */
+}
+
+/* Smooth transition for all elements during theme change - more gradual */
+.theme-transition * {
+  transition: background-color 0.8s cubic-bezier(0.25, 0.1, 0.25, 1),
+              color 0.7s cubic-bezier(0.25, 0.1, 0.25, 1),
+              border-color 0.7s cubic-bezier(0.25, 0.1, 0.25, 1),
+              box-shadow 0.7s cubic-bezier(0.25, 0.1, 0.25, 1),
+              opacity 0.7s cubic-bezier(0.25, 0.1, 0.25, 1) !important;
+}
+
+/* Special styles for theme toggle icons during transition - more subtle animation */
+.theme-transition .moon-icon,
+.theme-transition .sun-icon {
+  transition: transform 0.7s cubic-bezier(0.25, 0.1, 0.25, 1) !important;
+}
+
+/* Prevent layout shifts during theme transition */
+.theme-transition {
+  min-height: 100vh; /* Ensure consistent height during transition */
+  backface-visibility: hidden; /* Reduce potential flickering */
+}
+
+/* Zapobiegaj przesunięciom zawartości podczas przejść */
+.theme-transition main,
+.theme-transition section,
+.theme-transition header,
+.theme-transition footer,
+.theme-transition nav {
+  transform: translateZ(0); /* Aktywuj GPU rendering dla płynniejszych animacji */
+  will-change: contents; /* Daj wskazówkę przeglądarce o zmianie zawartości */
+}
+
+/* Zapewnij stałą szerokość/wysokość dla elementów nawigacyjnych */
+.theme-transition nav,
+.theme-transition header {
+  contain: layout; /* Izoluj zmiany layoutu */
+}
+
+/* Override for elements that shouldn't transition */
+.theme-transition .no-transition {
+  transition: none !important;
+}
+
+/* Special hover effects for interactive elements in dark mode */
+html.dark button:not([aria-label*="mode"]):hover,
+html.dark a:hover,
+html.dark .card:hover {
+  box-shadow: 0 5px 20px rgba(var(--lavender-rgb), 0.2);
+}
+
+/* Ensure text remains readable during transitions */
+.theme-transition p,
+.theme-transition h1,
+.theme-transition h2,
+.theme-transition h3,
+.theme-transition h4,
+.theme-transition h5,
+.theme-transition h6 {
+  transition: color 0.4s ease !important;
+}
+
+/* Very subtle fade transition instead of scale - prevents page movement */
+html.theme-transition body {
+  animation: themeShift 0.9s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+@keyframes themeShift {
+  0% { 
+    opacity: 0.98;
+  }
+  50% {
+    opacity: 0.96;
+  }
+  100% { 
+    opacity: 1;
+  }
+}
+
+/* Ensure forms and inputs have proper transitions */
+html.dark input,
+html.dark textarea,
+html.dark select {
+  background-color: var(--background-alt);
+  border-color: var(--border);
+  color: var(--text);
+}

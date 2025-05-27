@@ -1,0 +1,356 @@
+/* 
+   HackerLogoAnimation.css - Animation styles for the hacker logo effect
+*/
+
+/* Base class for the hacker logo animation */
+.hacker-logo {
+  font-family: "Courier New", monospace;
+  font-weight: 700;
+  position: relative;
+  display: inline-block;
+  letter-spacing: 0.05em;
+  transition: text-shadow 0.3s ease;
+}
+
+.hacker-logo:hover {
+  text-shadow: 0 0 5px #0055cc, 0 0 10px #0066cc, 0 0 2px rgba(255, 255, 255, 0.5);
+}
+
+/* Individual character animations */
+.hacker-logo .char {
+  display: inline-block;
+  position: relative;
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transition-delay: calc(var(--char-index) * 0.05s);
+}
+
+/* Hover animations */
+.hacker-logo:hover .char {
+  transform: translateY(-3px);
+  text-shadow: 0 0 8px #0055cc, 0 0 2px rgba(255, 255, 255, 0.6);
+}
+
+/* Dark mode adjustments */
+@media (prefers-color-scheme: dark) {
+  .hacker-logo:hover {
+    text-shadow: 0 0 7px #40b0ff, 0 0 12px #80d0ff, 0 0 3px rgba(255, 255, 255, 0.7);
+  }
+  
+  .hacker-logo:hover .char {
+    text-shadow: 0 0 10px #80d0ff, 0 0 3px rgba(255, 255, 255, 0.7);
+  }
+}
+
+.hacker-logo:hover .char:nth-child(odd) {
+  transform: translateY(-5px) rotate(3deg);
+  filter: brightness(1.2);
+}
+
+.hacker-logo:hover .char:nth-child(even) {
+  transform: translateY(-5px) rotate(-3deg);
+  filter: brightness(1.2);
+}
+
+/* Extra effect on first and last characters for emphasis */
+.hacker-logo:hover .char:first-child {
+  transform: translateY(-6px) rotate(5deg) scale(1.1);
+  filter: brightness(1.3);
+}
+
+.hacker-logo:hover .char:last-child {
+  transform: translateY(-6px) rotate(-5deg) scale(1.1);
+  filter: brightness(1.3);
+}
+
+/* Glitch effect */
+@keyframes glitch {
+  0% {
+    transform: translate(0);
+    text-shadow: 0 0 0 transparent;
+  }
+  20% {
+    transform: translate(-2px, 1px);
+    text-shadow: -1px 0 rgba(var(--accent-rgb), 0.8);
+    opacity: 0.9;
+  }
+  40% {
+    transform: translate(2px, -1px);
+    text-shadow: 1px 0 rgba(var(--primary-rgb), 0.8);
+    opacity: 1;
+  }
+  60% {
+    transform: translate(-2px, -1px);
+    text-shadow: -1px 0 rgba(var(--lavender-rgb), 0.8);
+    opacity: 0.95;
+  }
+  80% {
+    transform: translate(2px, 1px);
+    text-shadow: 1px 0 rgba(var(--accent-rgb), 0.8);
+    opacity: 0.9;
+  }
+  100% {
+    transform: translate(0);
+    text-shadow: 0 0 0 transparent;
+    opacity: 1;
+  }
+}
+
+/* Easter egg intense glitch effect */
+@keyframes intensiveGlitch {
+  0% {
+    transform: translate(0) skewX(0deg);
+    text-shadow: 0 0 0 transparent;
+  }
+  10% {
+    transform: translate(-5px, 3px) skewX(-5deg);
+    text-shadow: -3px 0 rgba(var(--accent-rgb), 0.8);
+    opacity: 0.8;
+  }
+  20% {
+    transform: translate(5px, -2px) skewX(5deg);
+    text-shadow: 3px 0 rgba(var(--primary-rgb), 0.8);
+    opacity: 1;
+  }
+  30% {
+    transform: translate(-3px, -3px) skewX(-3deg);
+    text-shadow: -2px 0 rgba(var(--lavender-rgb), 0.8);
+    opacity: 0.9;
+  }
+  40% {
+    transform: translate(3px, 2px) skewX(3deg);
+    text-shadow: 2px 0 rgba(var(--accent-rgb), 0.8);
+    opacity: 0.95;
+  }
+  50% {
+    transform: translate(-2px, -1px) skewX(-1deg);
+    text-shadow: -1px 0 rgba(var(--primary-rgb), 0.8);
+    opacity: 1;
+  }
+  60% {
+    transform: translate(4px, 2px) skewX(0deg);
+    text-shadow: 1px 0 rgba(var(--lavender-rgb), 0.8);
+    opacity: 0.9;
+  }
+  70% {
+    transform: translate(-4px, -2px) skewX(2deg);
+    text-shadow: -2px 0 rgba(var(--accent-rgb), 0.8);
+    opacity: 0.95;
+  }
+  80% {
+    transform: translate(2px, 1px) skewX(-2deg);
+    text-shadow: 2px 0 rgba(var(--primary-rgb), 0.8);
+    opacity: 1;
+  }
+  90% {
+    transform: translate(-1px, 1px) skewX(1deg);
+    text-shadow: -1px 0 rgba(var(--accent-rgb), 0.8);
+    opacity: 0.9;
+  }
+  100% {
+    transform: translate(0) skewX(0deg);
+    text-shadow: 0 0 0 transparent;
+    opacity: 1;
+  }
+}
+
+/* Running letters effect */
+@keyframes scramble {
+  0%, 100% { content: attr(data-letter); }
+  10% { content: "!"; }
+  20% { content: "/"; }
+  30% { content: "?"; }
+  40% { content: "%"; }
+  50% { content: "$"; }
+  60% { content: "#"; }
+  70% { content: "@"; }
+  80% { content: ">"; }
+  90% { content: "<"; }
+}
+
+/* Enhanced scramble with more hacker-like symbols */
+@keyframes hackerScramble {
+  0%, 100% { content: attr(data-letter); }
+  5% { content: "{"; }
+  10% { content: "0"; }
+  15% { content: "}"; }
+  20% { content: "1"; }
+  25% { content: "]"; }
+  30% { content: "["; }
+  35% { content: "="; }
+  40% { content: "*"; }
+  45% { content: "_"; }
+  50% { content: "\\"; }
+  55% { content: "/"; }
+  60% { content: "|"; }
+  65% { content: "&"; }
+  70% { content: "$"; }
+  75% { content: "#"; }
+  80% { content: "@"; }
+  85% { content: "!"; }
+  90% { content: "<"; }
+  95% { content: ">"; }
+}
+
+.hacker-logo:hover .char:after {
+  content: attr(data-letter);
+  position: absolute;
+  top: 0;
+  left: 0;
+  color: #0055cc;
+  animation: hackerScramble 0.8s infinite;
+  animation-delay: calc(var(--char-index) * 0.1s);
+  text-shadow: 0 0 3px rgba(0, 85, 204, 0.7), 0 0 1px rgba(255, 255, 255, 0.5);
+  opacity: 0.8;
+  text-shadow: 0 0 5px #0066cc;
+}
+
+@media (prefers-color-scheme: dark) {
+  .hacker-logo:hover .char:after {
+    color: #33adff;
+    text-shadow: 0 0 5px #66c2ff;
+    opacity: 0.9;
+  }
+}
+
+/* Dark mode scramble effect */
+@media (prefers-color-scheme: dark) {
+  .hacker-logo:hover .char:after {
+    color: #40b0ff;
+    text-shadow: 0 0 5px rgba(64, 176, 255, 0.8), 0 0 2px rgba(255, 255, 255, 0.6);
+    filter: brightness(1.2);
+  }
+}
+
+/* Special styles for dot */
+.hacker-logo .dot {
+  display: inline-block;
+  opacity: 0.8;
+  position: relative;
+}
+
+.hacker-logo:hover .dot {
+  transform: scale(1.5);
+  opacity: 1;
+  color: #0066cc;
+  animation: dotOrbit 1.5s infinite linear;
+  filter: brightness(1.3) drop-shadow(0 0 5px #0066cc);
+}
+
+/* Special styling for the dot character */
+.hacker-logo .char.dot {
+  position: relative;
+  color: transparent;
+}
+
+.hacker-logo .char.dot::before {
+  content: ".";
+  position: absolute;
+  top: 0;
+  left: 0;
+  color: #0055cc;
+  animation: dotPulse 2s infinite;
+}
+
+@keyframes dotPulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.8; transform: scale(1.2); }
+}
+
+/* Dark mode dot animation */
+@media (prefers-color-scheme: dark) {
+  .hacker-logo .char.dot::before {
+    color: #40b0ff;
+    text-shadow: 0 0 5px rgba(128, 208, 255, 0.8);
+  }
+}
+
+/* Extra animation for dot when hovered */
+.hacker-logo:hover .char.dot::before {
+  animation: dotPulseHover 0.8s infinite;
+  filter: brightness(1.4);
+}
+
+@keyframes dotPulseHover {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.8; transform: scale(1.5); }
+}
+
+/* Special styling for easter egg activation */
+.hacker-logo.easter-egg-active .char {
+  animation: intensiveGlitch 0.5s infinite !important;
+}
+
+.hacker-logo.easter-egg-active .dot {
+  animation: dotCrazy 0.8s infinite alternate !important;
+  filter: brightness(1.5) drop-shadow(0 0 10px #0066cc) !important;
+}
+
+/* Dark mode adjustments */
+@media (prefers-color-scheme: dark) {
+  .hacker-logo:hover .dot {
+    color: #33adff;
+    filter: brightness(1.3) drop-shadow(0 0 5px #66c2ff);
+  }
+  
+  .hacker-logo.easter-egg-active .dot {
+    filter: brightness(1.5) drop-shadow(0 0 10px #66c2ff) !important;
+  }
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); opacity: 0.8; }
+  100% { transform: scale(1.8); opacity: 1; }
+}
+
+/* Dot orbiting animation */
+@keyframes dotOrbit {
+  0% { transform: scale(1.2) translateY(0) translateX(0); }
+  25% { transform: scale(1.4) translateY(-2px) translateX(1px); }
+  50% { transform: scale(1.6) translateY(0) translateX(0); }
+  75% { transform: scale(1.4) translateY(2px) translateX(-1px); }
+  100% { transform: scale(1.2) translateY(0) translateX(0); }
+}
+
+/* Crazy dot animation for easter egg */
+@keyframes dotCrazy {
+  0% { transform: scale(1.2) translateY(0) translateX(0) rotate(0deg); }
+  20% { transform: scale(2) translateY(-3px) translateX(3px) rotate(90deg); }
+  40% { transform: scale(1.5) translateY(5px) translateX(-3px) rotate(180deg); }
+  60% { transform: scale(1.8) translateY(-5px) translateX(5px) rotate(270deg); }
+  80% { transform: scale(1.2) translateY(3px) translateX(-5px) rotate(360deg); }
+  100% { transform: scale(2) translateY(0) translateX(0) rotate(720deg); }
+}
+
+/* Easter egg activation */
+.hacker-logo.easter-egg-active {
+  animation: intensePulse 0.5s infinite alternate;
+}
+
+@keyframes intensePulse {
+  0% { transform: scale(1); filter: brightness(1); }
+  100% { transform: scale(1.05); filter: brightness(1.3); }
+}
+
+.hacker-logo.easter-egg-active .char {
+  animation: glitch 0.3s infinite;
+}
+
+/* Mobile optimizations */
+@media (max-width: 768px) {
+  .hacker-logo {
+    font-size: 1.8rem;
+  }
+}
+
+/* Reduce motion preference */
+@media (prefers-reduced-motion: reduce) {
+  .hacker-logo:hover .char,
+  .hacker-logo:hover .char:after,
+  .hacker-logo:hover .dot,
+  .hacker-logo.easter-egg-active,
+  .hacker-logo.easter-egg-active .char {
+    animation: none;
+    transform: none;
+    transition: none;
+  }
+}

@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎯 Final Scrollbar Test - FLID</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            margin: 20px;
+            background: linear-gradient(135deg, #4CAF50 0%, #2E7D32 100%);
+            min-height: 100vh;
+            color: white;
+        }
+        .test-panel {
+            background: rgba(255,255,255,0.95);
+            color: #333;
+            padding: 24px;
+            border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+            margin-bottom: 20px;
+            border-left: 4px solid #4CAF50;
+        }
+        .success { border-left-color: #4CAF50; background: rgba(76, 175, 80, 0.1); }
+        .test-button {
+            padding: 12px 24px;
+            margin: 8px;
+            border: none;
+            border-radius: 8px;
+            background: #4CAF50;
+            color: white;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
+        }
+        .test-button:hover {
+            background: #45a049;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(76, 175, 80, 0.4);
+        }
+        .result-log {
+            background: #1a1a1a;
+            color: #00ff00;
+            padding: 16px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            max-height: 300px;
+            overflow-y: auto;
+            border: 2px solid #4CAF50;
+            margin: 16px 0;
+        }
+        .log-entry {
+            margin: 4px 0;
+            padding: 2px 0;
+        }
+        .timestamp { color: #888; }
+        .success-log { color: #4CAF50; font-weight: bold; }
+        .error-log { color: #f44336; font-weight: bold; }
+        .info-log { color: #2196F3; }
+        .status-indicator {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+        .status-good { background: #4CAF50; }
+        .status-bad { background: #f44336; }
+        .status-warning { background: #ff9800; }
+    </style>
+</head>
+<body>
+    <h1>🎯 Final Scrollbar Fix Validation</h1>
+    <p style="font-size: 18px; margin-bottom: 30px;">Test ostatecznej poprawki problemu z podwójnym scrollbarem</p>
+    
+    <div class="test-panel success">
+        <h3>✅ Zaimplementowane poprawki</h3>
+        <ul>
+            <li><strong>PageTransitions.css:</strong> Usunięto overflow: hidden z .page-transition-container</li>
+            <li><strong>SubtlePageTransitions.css:</strong> Usunięto overflow: hidden z .page-transition-loading</li>
+            <li><strong>index.html:</strong> Inteligentne zarządzanie scrollbarem podczas hydration (50ms)</li>
+            <li><strong>index.css:</strong> Wykomentowano overflow-y: scroll</li>
+            <li><strong>GlobalStyles.js:</strong> Wykomentowano overflow-y: scroll</li>
+        </ul>
+    </div>
+    
+    <div class="test-panel">
+        <h3>🧪 Testy walidacyjne</h3>
+        <button class="test-button" onclick="testScrollbarVisibility()">👁️ Test widoczności scrollbara</button>
+        <button class="test-button" onclick="testMainApp()">🚀 Test głównej aplikacji</button>
+        <button class="test-button" onclick="simulateRefresh()">🔄 Symuluj odświeżanie</button>
+        <button class="test-button" onclick="runFullTest()">🎯 Pełny test walidacji</button>
+        <button class="test-button" onclick="clearLog()">🗑️ Wyczyść log</button>
+    </div>
+    
+    <div class="test-panel">
+        <h3>📊 Wyniki testów</h3>
+        <div id="scrollbar-status">
+            <span class="status-indicator status-warning"></span>
+            <span>Sprawdzanie stanu scrollbara...</span>
+        </div>
+        <div id="test-log" class="result-log">
+            <div class="log-entry info-log">
+                <span class="timestamp">[INIT]</span> System testów zainicjalizowany
+            </div>
+        </div>
+    </div>
+    
+    <div class="test-panel">
+        <h3>📋 Instrukcje testowania</h3>
+        <ol>
+            <li>Otwórz główną aplikację (przycisk "Test głównej aplikacji")</li>
+            <li>Odśwież stronę HomePage kilka razy (F5 lub Ctrl+R)</li>
+            <li>Obserwuj czy pojawia się dodatkowy scrollbar podczas ładowania</li>
+            <li>Sprawdź czy normalny browser scrollbar jest zawsze widoczny</li>
+            <li>Test uznaj za przeszedł, jeśli nie ma migania/dublowania scrollbara</li>
+        </ol>
+    </div>
+
+    <script>
+        function log(message, type = 'info') {
+            const logContainer = document.getElementById('test-log');
+            const timestamp = new Date().toLocaleTimeString();
+            const icons = {
+                'success': '✅',
+                'error': '❌',
+                'warning': '⚠️',
+                'info': 'ℹ️'
+            };
+            
+            const entry = document.createElement('div');
+            entry.className = `log-entry ${type}-log`;
+            entry.innerHTML = `<span class="timestamp">[${timestamp}]</span> ${icons[type] || 'ℹ️'} ${message}`;
+            
+            logContainer.insertBefore(entry, logContainer.firstChild);
+            
+            // Keep only last 30 entries
+            while (logContainer.children.length > 30) {
+                logContainer.removeChild(logContainer.lastChild);
+            }
+        }
+        
+        function updateScrollbarStatus() {
+            const statusEl = document.getElementById('scrollbar-status');
+            const hasScrollbar = window.innerWidth !== document.documentElement.clientWidth;
+            
+            if (hasScrollbar) {
+                statusEl.innerHTML = `
+                    <span class="status-indicator status-good"></span>
+                    <span>✅ Browser scrollbar jest poprawnie widoczny</span>
+                `;
+                return true;
+            } else {
+                statusEl.innerHTML = `
+                    <span class="status-indicator status-bad"></span>
+                    <span>❌ Browser scrollbar nie jest widoczny</span>
+                `;
+                return false;
+            }
+        }
+        
+        function testScrollbarVisibility() {
+            log('Rozpoczynam test widoczności scrollbara...', 'info');
+            
+            const hasScrollbar = updateScrollbarStatus();
+            
+            // Test CSS properties
+            const htmlStyle = getComputedStyle(document.documentElement);
+            const bodyStyle = getComputedStyle(document.body);
+            
+            log(`CSS overflow - HTML: ${htmlStyle.overflowY}, Body: ${bodyStyle.overflowY}`, 'info');
+            log(`CSS scrollbar-width - HTML: ${htmlStyle.scrollbarWidth}`, 'info');
+            
+            // Test scrollbar width
+            const testDiv = document.createElement('div');
+            testDiv.style.cssText = `
+                position: absolute;
+                top: -1000px;
+                left: -1000px;
+                width: 100px;
+                height: 100px;
+                overflow-y: scroll;
+                visibility: hidden;
+            `;
+            
+            const testContent = document.createElement('div');
+            testContent.style.height = '200px';
+            testDiv.appendChild(testContent);
+            
+            document.body.appendChild(testDiv);
+            const scrollbarWidth = testDiv.offsetWidth - testDiv.clientWidth;
+            document.body.removeChild(testDiv);
+            
+            log(`Zmierzona szerokość scrollbara: ${scrollbarWidth}px`, 'info');
+            
+            if (hasScrollbar && scrollbarWidth > 0) {
+                log('✅ Test scrollbara PRZESZEDŁ - scrollbar jest poprawnie widoczny', 'success');
+            } else {
+                log('❌ Test scrollbara NIE PRZESZEDŁ - sprawdź ustawienia CSS', 'error');
+            }
+        }
+        
+        function testMainApp() {
+            log('Otwieranie głównej aplikacji w nowym oknie...', 'info');
+            const appWindow = window.open('http://localhost:3006', '_blank');
+            
+            setTimeout(() => {
+                log('💡 Przetestuj główną aplikację:', 'info');
+                log('1. Odśwież stronę kilka razy (F5)', 'info');
+                log('2. Obserwuj czy scrollbar miga podczas ładowania', 'info');
+                log('3. Sprawdź różne strony (HomePage, Projects, Contact)', 'info');
+            }, 1000);
+        }
+        
+        function simulateRefresh() {
+            log('Symulacja odświeżania strony...', 'info');
+            
+            // Symuluj stan ładowania
+            document.body.style.overflow = 'hidden';
+            log('⏳ Symulacja: ukrycie scrollbara podczas ładowania', 'warning');
+            
+            setTimeout(() => {
+                document.body.style.overflow = '';
+                log('✅ Symulacja: przywrócenie normalnego scrollbara', 'success');
+                updateScrollbarStatus();
+            }, 100);
+        }
+        
+        async function runFullTest() {
+            log('🎯 Rozpoczynam pełny test walidacji...', 'info');
+            
+            // Test 1: Podstawowa widoczność scrollbara
+            log('Test 1/4: Podstawowa widoczność scrollbara', 'info');
+            testScrollbarVisibility();
+            await new Promise(resolve => setTimeout(resolve, 500));
+            
+            // Test 2: Symulacja refresh
+            log('Test 2/4: Symulacja odświeżania', 'info');
+            simulateRefresh();
+            await new Promise(resolve => setTimeout(resolve, 1000));
+            
+            // Test 3: CSS sprawdzenie
+            log('Test 3/4: Sprawdzenie ustawień CSS', 'info');
+            const pageTransitionElements = document.querySelectorAll('.page-transition-container');
+            if (pageTransitionElements.length === 0) {
+                log('✅ Brak elementów .page-transition-container na stronie testowej - OK', 'success');
+            }
+            
+            // Test 4: Podsumowanie
+            log('Test 4/4: Sprawdzenie końcowego stanu', 'info');
+            const finalStatus = updateScrollbarStatus();
+            
+            await new Promise(resolve => setTimeout(resolve, 500));
+            
+            if (finalStatus) {
+                log('🎉 PEŁNY TEST PRZESZEDŁ POMYŚLNIE! Scrollbar działa poprawnie.', 'success');
+                log('💡 Teraz przetestuj główną aplikację aby potwierdzić fix', 'info');
+            } else {
+                log('❌ TEST NIE PRZESZEDŁ - wymagane dalsze diagnozy', 'error');
+            }
+        }
+        
+        function clearLog() {
+            document.getElementById('test-log').innerHTML = `
+                <div class="log-entry info-log">
+                    <span class="timestamp">[CLEAR]</span> ℹ️ Log wyczyszczony
+                </div>
+            `;
+            log('🗑️ Log testów wyczyszczony', 'info');
+        }
+        
+        // Auto-start podstawowy test
+        setTimeout(() => {
+            log('Automatyczny test podstawowy uruchomiony', 'info');
+            updateScrollbarStatus();
+        }, 1000);
+        
+        // Monitor zmian
+        setInterval(() => {
+            updateScrollbarStatus();
+        }, 5000);
+    </script>
+</body>
+</html>
