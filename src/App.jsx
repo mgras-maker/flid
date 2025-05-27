@@ -149,12 +149,11 @@ const AnimatedRoutes = ({ setIsTransitioning }) => {
 // Root App component
 function App() {
   const [isTransitioning, setIsTransitioning] = useState(false);
-
   return (
     <HelmetProvider>
       <ThemeProvider>
         <GlobalStyles />
-        <Router>
+        <Router basename="/flid">
           <PageTransitionOverlay isTransitioning={isTransitioning} />
           <Layout>
             <AnimatedRoutes setIsTransitioning={setIsTransitioning} />
