@@ -7,15 +7,11 @@
  * @returns {string} - The correctly prefixed path
  */
 export const getAssetPath = (path) => {
-  // Remove leading slash if present
+  // Remove leading slash if present to make it relative
   const cleanPath = path.startsWith('/') ? path.slice(1) : path;
   
-  // In production (GitHub Pages), prefix with /flid/
-  // In development, use the path as-is
-  if (import.meta.env.PROD) {
-    return `/flid/${cleanPath}`;
-  }
-  
+  // Vite automatically handles the base path, so we just need to ensure
+  // the path starts with a slash for proper resolution
   return `/${cleanPath}`;
 };
 
