@@ -9,13 +9,12 @@ const preloadCriticalAssets = () => {
   // Only run in browser environment
   if (typeof document === 'undefined') return;  // Fonts are handled via @fontsource imports in main.jsx
   // No need for Google Fonts preloading since we use local font files
-  
-  // Get all critical images from the page that should be preloaded
+    // Get all critical images from the page that should be preloaded
   const criticalImagePaths = [
     // We're not preloading the logo since it's inline SVG
     // But we preload partner images that appear in the homepage
-    '/images/partners/partner1.svg',
-    '/images/partners/partner2.svg',
+    '/flid/images/partners/partner1.svg',
+    '/flid/images/partners/partner2.svg',
   ];
   
   // Preload critical images with priority management

@@ -165,10 +165,25 @@
     <meta name="description" content="FLID to fundacja zajmująca się innowacyjnymi projektami z zakresu designu, technologii i usług dla społeczeństwa." />
     <meta name="keywords" content="design thinking, innowacje, projektowanie usług, bielsko-biała, design" />
     <meta property="og:title" content="Fundacja Ludzie-Innowacje-Design (FLID)" />
-    <meta property="og:description" content="Innowacyjne rozwiązania dla ludzi poprzez design thinking i projektowanie usług." />
-    <meta property="og:image" content="/images/flid-social-share.jpg" />
+    <meta property="og:description" content="Innowacyjne rozwiązania dla ludzi poprzez design thinking i projektowanie usług." />    <meta property="og:image" content="/images/flid-social-share.jpg" />
     <meta property="og:url" content="https://flid.pl" />
     <meta name="twitter:card" content="summary_large_image" />
+    
+    <!-- GitHub Pages SPA routing script -->
+    <script type="text/javascript">
+      // Single Page Apps for GitHub Pages
+      // https://github.com/rafgraph/spa-github-pages
+      (function(l) {
+        if (l.search[1] === '/' ) {
+          var decoded = l.search.slice(1).split('&').map(function(s) { 
+            return s.replace(/~and~/g, '&')
+          }).join('?');
+          window.history.replaceState(null, null,
+              l.pathname.slice(0, -1) + decoded + l.hash
+          );
+        }
+      }(window.location))
+    </script>
   </head>
   <body>
     <div id="root"></div>
