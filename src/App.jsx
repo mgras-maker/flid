@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom'
 import { ThemeProvider } from './contexts/ThemeContext'
 import { HelmetProvider } from 'react-helmet-async'
-import { AnimatePresence, motion } from 'framer-motion'
+import { AnimatePresence, motion } from 'framer-motion' // Re-added motion
 import { useEffect, useState } from 'react'
 import Layout from './components/Layout'
 import SimpleScrollbar from './components/SimpleScrollbar'
@@ -154,7 +154,7 @@ function App() {
     <HelmetProvider>
       <ThemeProvider>
         <GlobalStyles />
-        <Router>
+        <Router basename="/flid">
           <PageTransitionOverlay isTransitioning={isTransitioning} />
           <Layout>
             <AnimatedRoutes setIsTransitioning={setIsTransitioning} />
