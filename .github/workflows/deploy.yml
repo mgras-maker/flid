@@ -1,4 +1,4 @@
-name: Deploy to GitHub Pages
+﻿name: Deploy to GitHub Pages
 
 on:
   push:
@@ -30,6 +30,13 @@ jobs:
 
     - name: Build
       run: npm run build
+
+    - name: Debug build output
+      run: |
+        echo "=== Contents of dist/index.html ==="
+        cat dist/index.html | tail -10
+        echo "=== Files in dist/assets ==="
+        ls -la dist/assets/ | head -10
 
     - name: Setup Pages
       uses: actions/configure-pages@v3
