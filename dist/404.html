@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>FLID - Przekierowanie</title>
+    <script type="text/javascript">
+      // GitHub Pages SPA redirect script
+      // https://github.com/rafgraph/spa-github-pages
+      var pathSegments = location.pathname.slice(1).split('/');
+      if (pathSegments[0] !== 'flid') {
+        // Add the base path if it's missing
+        location.replace(location.protocol + '//' + location.hostname + '/flid' + location.pathname + location.search + location.hash);
+      } else {
+        // For paths that already have /flid/, redirect to index.html with path as query string
+        var redirectPath = location.pathname.slice(5); // Remove '/flid' prefix
+        location.replace(
+          location.protocol + '//' + location.hostname + '/flid/' +
+          '?redirect=' + encodeURIComponent(redirectPath + location.search + location.hash)
+        );
+      }
+    </script>
+  </head>
+  <body>
+    <p>Przekierowuję...</p>
+  </body>
+</html>
