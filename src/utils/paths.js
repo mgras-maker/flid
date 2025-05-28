@@ -19,6 +19,11 @@ export const getImagePath = (imagePath) => {
   const basePath = getBasePath();
   const cleanPath = imagePath.startsWith('/') ? imagePath.slice(1) : imagePath;
   const cleanImagePath = cleanPath.startsWith('images/') ? cleanPath : `images/${cleanPath}`;
+  
+  // Handle empty basePath (development) vs non-empty basePath (production)
+  if (basePath === '') {
+    return `/${cleanImagePath}`;
+  }
   return `${basePath}/${cleanImagePath}`;
 };
 
@@ -30,5 +35,10 @@ export const getImagePath = (imagePath) => {
 export const getAssetPath = (assetPath) => {
   const basePath = getBasePath();
   const cleanPath = assetPath.startsWith('/') ? assetPath.slice(1) : assetPath;
+  
+  // Handle empty basePath (development) vs non-empty basePath (production)
+  if (basePath === '') {
+    return `/${cleanPath}`;
+  }
   return `${basePath}/${cleanPath}`;
 };
