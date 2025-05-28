@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom'
 import { ThemeProvider } from './contexts/ThemeContext'
 import { HelmetProvider } from 'react-helmet-async'
-import { AnimatePresence } from 'framer-motion'
+import { AnimatePresence, motion } from 'framer-motion'
 import { useEffect, useState } from 'react'
 import Layout from './components/Layout'
 import SimpleScrollbar from './components/SimpleScrollbar'
@@ -149,12 +149,13 @@ const AnimatedRoutes = ({ setIsTransitioning }) => {
 // Root App component
 function App() {
   const [isTransitioning, setIsTransitioning] = useState(false);
+  const isProduction = import.meta.env.PROD;
 
   return (
     <HelmetProvider>
       <ThemeProvider>
         <GlobalStyles />
-        <Router basename="/flid">
+        <Router basename={isProduction ? "/flid" : undefined}>
           <PageTransitionOverlay isTransitioning={isTransitioning} />
           <Layout>
             <AnimatedRoutes setIsTransitioning={setIsTransitioning} />
