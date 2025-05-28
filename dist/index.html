@@ -1,175 +1,21 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="pl">
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/flid/favicon.svg" />
-    <link rel="apple-touch-icon" href="/flid/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- Enhanced anti-flash technique with more comprehensive controls -->
-    <style>
-      /* Critical path CSS to prevent layout shifts and flashing */
-      html {
-        visibility: visible;
-        background-color: #ffffff;
-        margin: 0;
-        padding: 0;
-        height: 100%;
-        width: 100%;
-        overflow-x: hidden;
-        /* Ensure vertical scroll is auto and not forced */
-        overflow-y: auto;
-      }
-      
-      html.dark {
-        background-color: #121212;
-      }
-      
-      /* Control the body visibility separately for smoother transitions */
-      body {
-        opacity: 1;
-        margin: 0;
-        padding: 0;
-        height: 100%;
-        width: 100%;
-        transition: opacity 0.3s ease;
-        overflow-x: hidden;
-        /* Ensure vertical scroll is auto and not forced */
-        overflow-y: auto;
-      }
-      
-      /* Pre-render navbar placeholder to prevent layout shift */
-      body::before {
-        content: '';
-        display: block;
-        height: 80px; /* Same as navbar height */
-        width: 100%;
-        position: fixed;
-        top: 0;
-        z-index: 1000;
-        background-color: transparent;
-      }
-      
-      /* Ensure smooth transitions */
-      * {
-        box-sizing: border-box;
-      }
-      
-      /* Temporarily prevent scrollbar flash during React initialization only */
-      #root {
-        height: 100%;
-        width: 100%;
-        overflow-x: hidden;
-        /* Ensure vertical scroll is auto and not forced */
-        overflow-y: auto;
-      }
-      
-      /* Add a system background color based on theme */
-      .content-placeholder {
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        z-index: -1;
-        background-color: #ffffff;
-        transition: background-color 0.3s ease;
-      }
-      
-      html.dark .content-placeholder {
-        background-color: #121212;
-      }
-    </style>
-    <script>
-      // TEMPORARY DISABLE - Testing if our JavaScript fix is causing the scrollbar flash
-      // Enhanced anti-flash technique - prevents mruga (flashing) during page transitions
-      (function() {
-        // Get theme preference and apply it instantly
-        const savedTheme = localStorage.getItem('flid-theme');
-        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        const isDark = savedTheme === 'dark' || (!savedTheme && prefersDark);
-        
-        // Apply dark theme if needed
-        if (isDark) {
-          document.documentElement.classList.add('dark');
-        }
-        
-        // DISABLED - Create placeholder element
-        // const placeholder = document.createElement('div');
-        // placeholder.className = 'content-placeholder';
-        // document.head.appendChild(placeholder);
-        
-        // DISABLED - Create a style element to temporarily control scrollbar during initial load only
-        // const styleEl = document.createElement('style');
-        // styleEl.id = 'temp-scrollbar-control';
-        // styleEl.textContent = `
-        //   .page-transition * {
-        //     transition: none !important;
-        //   }
-        //   
-        //   /* Temporary scrollbar hiding ONLY during critical initial load moment */
-        //   .initial-load-hide-scrollbar {
-        //     overflow-y: hidden !important;
-        //     scrollbar-width: none !important;
-        //     -ms-overflow-style: none !important;
-        //   }
-        //   
-        //   .initial-load-hide-scrollbar::-webkit-scrollbar {
-        //     display: none !important;
-        //     width: 0 !important;
-        //     height: 0 !important;
-        //     background: transparent !important;
-        //   }
-        // `;
-        // document.head.appendChild(styleEl);
-        
-        // DISABLED - Apply temporary scrollbar hiding during critical initial load
-        // Only apply this class during the very brief React hydration moment
-        
-        // DISABLED - Apply page transition class to capture initial state
-        // document.addEventListener('DOMContentLoaded', function() {
-        //   // Temporarily hide scrollbar only during React initialization
-        //   document.documentElement.classList.add('initial-load-hide-scrollbar');
-        //   document.body.classList.add('initial-load-hide-scrollbar');
-        //   document.body.classList.add('page-transition');
-        //   
-        //   // Very short delay to prevent scrollbar flash during React hydration only
-        //   setTimeout(() => {
-        //     // Remove temporary scrollbar hiding to restore normal browser scrollbar
-        //     document.documentElement.classList.remove('initial-load-hide-scrollbar');
-        //     document.body.classList.remove('initial-load-hide-scrollbar');
-        //     
-        //     // Remove the temporary style element completely
-        //     const tempStyle = document.getElementById('temp-scrollbar-control');
-        //     if (tempStyle) {
-        //       tempStyle.remove();
-        //     }
-        //     
-        //     // Reveal content with proper timing for smooth appearance
-        //     requestAnimationFrame(function() {
-        //       requestAnimationFrame(function() {
-        //         document.body.classList.remove('page-transition');
-        //         document.body.style.visibility = 'visible';
-        //         document.documentElement.style.visibility = 'visible';
-        //       });
-        //     });
-        //   }, 50); // Very short delay - just enough to prevent initial scrollbar flash
-        // });
-        
-        // DISABLED - Handle navigation events to prevent flash during transitions
-        // window.addEventListener('beforeunload', function() {
-        //   document.body.classList.add('page-transition');
-        // });
-      })();
-    </script>
-    <title>Fundacja Ludzie-Innowacje-Design (FLID) | Innowacyjne rozwiązania dla ludzi</title>
+    <title>FLID - Fundacja Ludzie-Innowacje-Design</title>
     <meta name="description" content="FLID to fundacja zajmująca się innowacyjnymi projektami z zakresu designu, technologii i usług dla społeczeństwa." />
-    <meta name="keywords" content="design thinking, innowacje, projektowanie usług, bielsko-biała, design" />
-    <meta property="og:title" content="Fundacja Ludzie-Innowacje-Design (FLID)" />
-    <meta property="og:description" content="Innowacyjne rozwiązania dla ludzi poprzez design thinking i projektowanie usług." />
-    <meta property="og:image" content="/images/flid-social-share.jpg" />
-    <meta property="og:url" content="https://flid.pl" />
-    <meta name="twitter:card" content="summary_large_image" />
-    <script type="module" crossorigin src="/flid/assets/index-D1m7XZEU.js"></script>
+    
+    <!-- Preload critical resources -->
+    <link rel="preload" href="data:text/jsx;base64,aW1wb3J0IFJlYWN0IGZyb20gJ3JlYWN0Jw0KaW1wb3J0IFJlYWN0RE9NIGZyb20gJ3JlYWN0LWRvbS9jbGllbnQnDQppbXBvcnQgJy4vaW5kZXguY3NzJw0KaW1wb3J0ICcuL3N0eWxlcy9OYXZGaXhlcy5jc3MnIC8vIEltcG9ydCBuYXZpZ2F0aW9uIGZpeGVzDQppbXBvcnQgJy4vc3R5bGVzL1BhZ2VUcmFuc2l0aW9ucy5jc3MnIC8vIEltcG9ydCBlbmhhbmNlZCBwYWdlIHRyYW5zaXRpb25zDQppbXBvcnQgJy4vc3R5bGVzL1BhZ2VGaXhlcy5jc3MnIC8vIEltcG9ydCBwYWdlIHRyYW5zaXRpb24gZml4ZXMNCmltcG9ydCAnLi9zdHlsZXMvTGF2ZW5kZXJBbmltYXRpb25zLmNzcycgLy8gSW1wb3J0IGxhdmVuZGVyIGFuaW1hdGlvbiBlZmZlY3RzDQppbXBvcnQgJy4vc3R5bGVzL05hdmJhci5jc3MnIC8vIEltcG9ydCBuYXZiYXItc3BlY2lmaWMgc3R5bGVzDQppbXBvcnQgJy4vc3R5bGVzL0NsaWNrRml4LmNzcycgLy8gSW1wb3J0IGZpeCBkbGEga2xpa2Fsbm/Fm2NpIGVsZW1lbnTDs3cNCi8vIEltcG9ydCBuYXN6eWNoIG9wdHltYWxpemFjamkgd3lkYWpub8WbY2kgLSBwcnplZCBpbm55bWkgc3R5bGFtaSwgYWJ5IG1pYcWCeSB3ecW8c3p5IHByaW9yeXRldA0KaW1wb3J0ICcuL3N0eWxlcy9QZXJmb3JtYW5jZU9wdGltaXphdGlvbnMuY3NzJyAvLyBHbG9iYWxuZSBvcHR5bWFsaXphY2plIHd5ZGFqbm/Fm2NpDQovLyBDcmVhdGl2ZU5hdmJhci5jc3MgaXMgaW1wb3J0ZWQgZGlyZWN0bHkgaW4gdGhlIGNvbXBvbmVudA0KaW1wb3J0IEFwcCBmcm9tICcuL0FwcC5qc3gnDQppbXBvcnQgJy4vdXRpbHMvUGVyZm9ybWFuY2VPcHRpbWl6ZXInIC8vIEltcG9ydCBuYXN6ZWdvIG5vd2VnbyBvcHR5bWFsaXphdG9yYSB3eWRham5vxZtjaQ0KaW1wb3J0ICcuL3V0aWxzL0hERGlzcGxheU9wdGltaXplcicgLy8gSW1wb3J0IEhEIGRpc3BsYXkgb3B0aW1pemF0aW9ucyAoem9wdHltYWxpem93YW55KQ0KaW1wb3J0ICcuL3V0aWxzL05hdmJhck9wdGltaXphdGlvbicgLy8gSW1wb3J0IG5hdmJhciBvcHRpbWl6YXRpb25zDQovLyBVc3VuacSZdHkgaW1wb3J0IEljb25QcmVsb2FkZXIgLSB6Ynl0IG9iY2nEhcW8YWrEhWN5DQoNCi8vIEltcG9ydCBub3d5Y2ggZWxlZ2FuY2tpY2ggY3pjaW9uZWsNCmltcG9ydCAnQGZvbnRzb3VyY2UvcGxheWZhaXItZGlzcGxheS80MDAuY3NzJw0KaW1wb3J0ICdAZm9udHNvdXJjZS9wbGF5ZmFpci1kaXNwbGF5LzUwMC5jc3MnDQppbXBvcnQgJ0Bmb250c291cmNlL3BsYXlmYWlyLWRpc3BsYXkvNzAwLmNzcycNCmltcG9ydCAnQGZvbnRzb3VyY2UvY29ybW9yYW50LWdhcmFtb25kLzQwMC5jc3MnDQppbXBvcnQgJ0Bmb250c291cmNlL2Nvcm1vcmFudC1nYXJhbW9uZC81MDAuY3NzJw0KaW1wb3J0ICdAZm9udHNvdXJjZS9jb3Jtb3JhbnQtZ2FyYW1vbmQvNjAwLmNzcycNCmltcG9ydCAnQGZvbnRzb3VyY2UvbW9udHNlcnJhdC8zMDAuY3NzJw0KaW1wb3J0ICdAZm9udHNvdXJjZS9tb250c2VycmF0LzQwMC5jc3MnDQppbXBvcnQgJ0Bmb250c291cmNlL21vbnRzZXJyYXQvNTAwLmNzcycNCmltcG9ydCAnQGZvbnRzb3VyY2UvbW9udHNlcnJhdC82MDAuY3NzJw0KaW1wb3J0ICdAZm9udHNvdXJjZS9tb250c2VycmF0LzcwMC5jc3MnDQoNCi8vIERvZGFuaWUga2xhc3kgZGV2LW1vZGUgdyB0cnliaWUgZGV3ZWxvcGVyc2tpbSBkbGEgbGVwc3plZ28gZGVidWdvd2FuaWENCmlmIChpbXBvcnQubWV0YS5lbnYuREVWKSB7DQogIGRvY3VtZW50LmRvY3VtZW50RWxlbWVudC5jbGFzc0xpc3QuYWRkKCdkZXYtbW9kZScpOw0KfQ0KDQovLyBJbml0aWFsaXplIHRoZSBhcHBsaWNhdGlvbiB3aXRoIG9wdGltaXphdGlvbnMgZm9yIHRyYW5zaXRpb25zDQpSZWFjdERPTS5jcmVhdGVSb290KGRvY3VtZW50LmdldEVsZW1lbnRCeUlkKCdyb290JykpLnJlbmRlcigNCiAgPFJlYWN0LlN0cmljdE1vZGU+DQogICAgPEFwcCAvPg0KICA8L1JlYWN0LlN0cmljdE1vZGU+LA0KKQ0K" as="script" />
+    
+    <!-- Favicon and Apple Touch Icon -->
+    <link rel="apple-touch-icon" href="/flid/favicon.svg" />
+    
+    <!-- Theme Color -->
+    <meta name="theme-color" content="#1a1a1a" />
+    <script type="module" crossorigin src="/flid/assets/index-c4uXbi-j.js"></script>
     <link rel="stylesheet" crossorigin href="/flid/assets/index-Ci9Uyleq.css">
   </head>
   <body>

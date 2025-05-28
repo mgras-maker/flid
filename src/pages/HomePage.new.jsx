@@ -9,6 +9,7 @@ import projectsData from '../data/projectsData';
 import partnersData from '../data/partnersData';
 import { ProjectPlaceholder, PartnerLogoPlaceholder } from '../components/PlaceholderImages';
 import OptimizedImage from '../components/OptimizedImage';
+import { getImagePath } from '../utils/paths';
 import { DisplayTitle, DisplaySubtitle, SectionHeader, Paragraph, TextAccent } from '../components/Typography';
 import { Button } from '../components/Buttons';
 import { Section, Container, Card, CardImage, CardContent, CardTag, CardTitle, CardDescription, CardMeta, Grid, CenteredContent } from '../components/Elements';
@@ -16,8 +17,8 @@ import { Section, Container, Card, CardImage, CardContent, CardTag, CardTitle, C
 const HomePage = () => {
   // Wybrane projekty do wyświetlenia (3 zamiast 6 dla bardziej minimalistycznego wyglądu)
   const featuredProjects = projectsData.slice(0, 3);
-  
-  // Hooki do animacji przy wejściu na ekran  const [heroRef, heroInView] = useInView({ triggerOnce: true, threshold: 0.1 });
+    // Hooki do animacji przy wejściu na ekran
+  const [heroRef, heroInView] = useInView({ triggerOnce: true, threshold: 0.1 });
   const [aboutRef, aboutInView] = useInView({ triggerOnce: true, threshold: 0.1 });
   const [processRef, processInView] = useInView({ triggerOnce: true, threshold: 0.1 });
   const [projectsRef, projectsInView] = useInView({ triggerOnce: true, threshold: 0.1 });
@@ -69,10 +70,9 @@ const HomePage = () => {
                 initial={{ opacity: 0, scale: 0.92 }}
                 animate={heroInView ? { opacity: 1, scale: 1 } : {}}
                 transition={{ duration: 1.2, delay: 0.4 }}
-              >
-                <HeroImageFrame>
+              >                <HeroImageFrame>
                   <OptimizedImage 
-                    src="/images/placeholder.svg"
+                    src={getImagePath("placeholder.svg")}
                     alt="FLID Design"
                     aspectRatio="4:3"
                     priority={true}
@@ -95,10 +95,9 @@ const HomePage = () => {
                 initial={{ opacity: 0, x: -20 }}
                 animate={aboutInView ? { opacity: 1, x: 0 } : {}}
                 transition={{ duration: 0.9, delay: 0.2 }}
-              >
-                <AboutImageFrame>
+              >                <AboutImageFrame>
                   <OptimizedImage 
-                    src="/images/placeholder.svg"
+                    src={getImagePath("placeholder.svg")}
                     alt="O Fundacji FLID"
                     aspectRatio="1:1"
                     className="about-image"

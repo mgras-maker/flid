@@ -1,4 +1,5 @@
 import { Helmet } from 'react-helmet-async';
+import { getImagePath } from '../utils/paths';
 
 /**
  * MetaTags component for managing document head metadata
@@ -14,7 +15,7 @@ const MetaTags = ({
   title = 'FLID - Fundacja Ludzie-Innowacje-Design',
   description = 'FLID to fundacja zajmująca się innowacyjnymi projektami z zakresu designu, technologii i usług dla społeczeństwa.',
   keywords = 'design thinking, innowacje, projektowanie usług, bielsko-biała, design',
-  ogImage = '/images/flid-social-share.svg',
+  ogImage = getImagePath('flid-social-share.svg'),
   canonical = ''
 }) => {
   const siteUrl = 'https://flid.pl';

@@ -9,6 +9,7 @@ import { ButtonPrimary } from '../components/Buttons';
 import { CreativeHeading } from '../components/CreativeElements';
 import { GradientText } from '../components/CreativeTypography';
 import { Placeholder, TeamMemberPlaceholder } from '../components/PlaceholderImages';
+import { getImagePath } from '../utils/paths';
 
 const AboutPage = () => {  // Animation controls for scroll animations
   const controlsMission = useAnimation();
@@ -70,10 +71,9 @@ const AboutPage = () => {  // Animation controls for scroll animations
               zrównoważonych rozwiązań. Łączymy ekspertów, projektantów i społeczności, 
               aby wspólnie tworzyć lepszą przyszłość.
             </HeroDescription>
-          </HeroContent>
-          <HeroImageWrapper>
+          </HeroContent>          <HeroImageWrapper>
             <OptimizedImage 
-              src="/images/placeholder.svg" 
+              src={getImagePath("placeholder.svg")} 
               alt="Fundacja FLID"
               aspectRatio="16:9"
               priority

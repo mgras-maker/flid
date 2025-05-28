@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 import publicationsData from '../data/publicationsData';
 import MetaTags from '../components/MetaTags';
 import OptimizedImage from '../components/OptimizedImage';
+import { getImagePath } from '../utils/paths';
 
 const PublicationDetailPage = () => {
   const { slug } = useParams();
@@ -77,12 +78,12 @@ const PublicationDetailPage = () => {
             <PublicationGallery>              <MainImageContainer>
                 <OptimizedImage
                   key={activeImage}
-                  src={activeImage || "/images/publication-placeholder.jpg"}
+                  src={activeImage || getImagePath("publication-placeholder.jpg")}
                   alt={publication.title}
                   aspectRatio="16:9"
                   priority={true}
                   className="publication-main-image"
-                  placeholderSrc="/images/placeholder.svg"
+                  placeholderSrc={getImagePath("placeholder.svg")}
                 />
               </MainImageContainer>
               
@@ -94,7 +95,7 @@ const PublicationDetailPage = () => {
                       active={image === activeImage}
                       onClick={() => setActiveImage(image)}
                     >                      <OptimizedImage 
-                        src={image || "/images/publication-placeholder-thumb.jpg"} 
+                        src={image || getImagePath("publication-placeholder-thumb.jpg")} 
                         alt={`${publication.title} - zdjęcie ${index + 1}`}
                         aspectRatio="1:1"
                         className="thumbnail-image"
@@ -165,7 +166,7 @@ const PublicationDetailPage = () => {
                   whileHover={{ y: -5 }}
                 >
                   <RelatedImageContainer>                    <OptimizedImage 
-                      src={relatedPublication.coverImage || "/images/publication-placeholder.jpg"} 
+                      src={relatedPublication.coverImage || getImagePath("publication-placeholder.jpg")} 
                       alt={relatedPublication.title}
                       aspectRatio="16:9"
                       className="related-publication-image"

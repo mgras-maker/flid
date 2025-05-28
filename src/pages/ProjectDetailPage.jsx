@@ -6,6 +6,7 @@ import projectsData from '../data/projectsData';
 import { ProjectPlaceholder } from '../components/PlaceholderImages';
 import MetaTags from '../components/MetaTags';
 import OptimizedImage from '../components/OptimizedImage';
+import { getImagePath } from '../utils/paths';
 
 const ProjectDetailPage = () => {
   const { slug } = useParams();
@@ -104,7 +105,7 @@ const ProjectDetailPage = () => {
                     aspectRatio="auto" // Changed from "16:9" to "auto"
                     priority={true}
                     className="project-main-image"
-                    placeholderSrc="/images/placeholder.svg"
+                    placeholderSrc={getImagePath("placeholder.svg")}
                   />
                 ) : (
                   // If no activeImage (e.g., only cover image existed), show nothing or a placeholder here
