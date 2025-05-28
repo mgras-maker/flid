@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom'
+import { BrowserRouter as Router, Routes, Route, useLocation, useNavigate } from 'react-router-dom'
 import { ThemeProvider } from './contexts/ThemeContext'
 import { HelmetProvider } from 'react-helmet-async'
 import { AnimatePresence, motion } from 'framer-motion'
@@ -146,6 +146,25 @@ const AnimatedRoutes = ({ setIsTransitioning }) => {
   );
 };
 
+// Component to handle GitHub Pages SPA redirects
+const RedirectHandler = () => {
+  const navigate = useNavigate();
+  
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const redirect = urlParams.get('redirect');
+    
+    if (redirect) {
+      // Remove the redirect parameter from URL and navigate to the intended path
+      const cleanUrl = window.location.pathname;
+      window.history.replaceState({}, '', cleanUrl);
+      navigate(redirect, { replace: true });
+    }
+  }, [navigate]);
+  
+  return null;
+};
+
 // Root App component
 function App() {
   const [isTransitioning, setIsTransitioning] = useState(false);
@@ -154,10 +173,11 @@ function App() {
   return (
     <HelmetProvider>
       <ThemeProvider>
-        <GlobalStyles />
-        <Router basename={isProduction ? "/flid" : undefined}>
+        <GlobalStyles />        <Router basename={isProduction ? "/flid" : undefined}>
+          <RedirectHandler />
           <PageTransitionOverlay isTransitioning={isTransitioning} />
           <Layout>
+            <RedirectHandler />
             <AnimatedRoutes setIsTransitioning={setIsTransitioning} />
           </Layout>
           {/* <SimpleScrollbar /> */}
