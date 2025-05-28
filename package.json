@@ -2,12 +2,13 @@
   "name": "flid_6_app",
   "private": true,
   "version": "0.0.0",
-  "type": "module",
-  "scripts": {
+  "type": "module",  "scripts": {
     "dev": "vite",
     "build": "vite build",
+    "build:gh-pages": "vite build --base=/flid/",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "preview:gh-pages": "vite preview --base=/flid/"
   },
   "dependencies": {
     "@fontsource/cormorant-garamond": "^5.2.7",

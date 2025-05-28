@@ -149,15 +149,12 @@ const AnimatedRoutes = ({ setIsTransitioning }) => {
 // Root App component
 function App() {
   const [isTransitioning, setIsTransitioning] = useState(false);
-  
-  // Use different basename for development vs production
-  const basename = import.meta.env.PROD ? "/flid" : "/";
-  
+
   return (
     <HelmetProvider>
       <ThemeProvider>
         <GlobalStyles />
-        <Router basename={basename}>
+        <Router basename="/flid">
           <PageTransitionOverlay isTransitioning={isTransitioning} />
           <Layout>
             <AnimatedRoutes setIsTransitioning={setIsTransitioning} />

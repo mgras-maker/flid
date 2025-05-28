@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import styled from 'styled-components';
 import { useIsMobile } from '../hooks/useMatchMedia';
-import { getAssetPath } from '../utils/assetPath';
 
 /**
  * OptimizedImage component for responsive and lazy-loaded images
@@ -18,7 +17,7 @@ import { getAssetPath } from '../utils/assetPath';
 const OptimizedImage = ({
   src,
   alt,
-  placeholderSrc = 'images/placeholder.svg',
+  placeholderSrc = '/images/placeholder.svg',
   aspectRatio = 'auto',
   imgStyles = {},
   priority = false,
@@ -29,25 +28,20 @@ const OptimizedImage = ({
     const [loaded, setLoaded] = useState(false);
   const [error, setError] = useState(false);
   const isMobile = useIsMobile();
-  // Use the asset path utility to get correct paths
-  const imageSrc = getAssetPath(src);
-  const fallbackSrc = getAssetPath(placeholderSrc);
   
   // Calculate aspect ratio for container
   const aspectRatioParts = aspectRatio.split(':');
   const aspectRatioValue = aspectRatio !== 'auto' && aspectRatioParts.length === 2 
     ? (parseInt(aspectRatioParts[1]) / parseInt(aspectRatioParts[0]) * 100)
-    : null;
-    
-  // Handle image load
+    : null;    // Handle image load
   const handleLoad = () => {
-    console.log('Image loaded successfully:', imageSrc);
+    console.log('Image loaded successfully:', src);
     setLoaded(true);
   };
   
   // Handle image error with improved fallback handling
   const handleError = () => {
-    console.error(`Failed to load image: ${imageSrc}`);
+    console.error(`Failed to load image: ${src}`);
     setError(true);
   };
 
@@ -57,11 +51,13 @@ const OptimizedImage = ({
       $aspectRatio={aspectRatioValue}
       $hasImage={loaded && !error}
       {...props}
-    >      {/* Debug info */}
-      {console.log('Rendering OptimizedImage:', { src, imageSrc, loaded, error, aspectRatioValue })}
-        {/* Main image - always render but control visibility */}
+    >
+      {/* Debug info */}
+      {console.log('Rendering OptimizedImage:', { src, loaded, error, aspectRatioValue })}
+      
+      {/* Main image - always render but control visibility */}
       <StyledImage
-        src={error ? fallbackSrc : imageSrc}
+        src={error ? placeholderSrc : src}
         alt={alt}
         loading={priority ? 'eager' : 'lazy'}
         onLoad={handleLoad}
